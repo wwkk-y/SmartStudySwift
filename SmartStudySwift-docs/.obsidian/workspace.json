@@ -1,0 +1,186 @@
+{
+  "main": {
+    "id": "a78ee4ed5ff80638",
+    "type": "split",
+    "children": [
+      {
+        "id": "d7b2b2291b797807",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "386a81fd492c1fb1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00-work log/00-环境搭建/00-新建空项目(父模块).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "16946a040e3ad92b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00-work log/00-环境搭建/01-新建子模块.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "5cf945b167580c0c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a3e30b8b5b7b29a9",
+    "type": "split",
+    "children": [
+      {
+        "id": "a03ac7f9b78f13e7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8e49163ae7523af4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "172ed0647bb705da",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9a5e63cca1c8cd8d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1d1ab69591fd8c95",
+    "type": "split",
+    "children": [
+      {
+        "id": "97d4bda4b5077c40",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6044effe87e726a8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "da41dab44d8681b9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4538244b80a48fd1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "f3cf802cb5a4a79b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "00-work log/00-环境搭建/02-新建通用模块.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "5cf945b167580c0c",
+  "lastOpenFiles": [
+    "00-work log/00-环境搭建/01-新建子模块.md",
+    "00-work log/00-环境搭建/00-新建空项目(父模块).md",
+    "00-work log/00-环境搭建/02-新建通用模块.md",
+    "00-work log/00-环境搭建/03-引入MySQL.md",
+    "01-开发环境.md",
+    "00-work log/00-环境搭建",
+    "00-work log/004-新建权限管理模块.md",
+    "ignore.md",
+    "00-work log"
+  ]
+}

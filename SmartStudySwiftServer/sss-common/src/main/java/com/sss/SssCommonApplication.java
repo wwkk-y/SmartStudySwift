@@ -1,13 +1,11 @@
-package com.sss.smartstudyswiftserver;
+package com.sss;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmartStudySwiftServerApplication {
-
+public class SssCommonApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SmartStudySwiftServerApplication.class, args);
+        SpringApplication.run(SssCommonApplication.class);
     }
-
 }
