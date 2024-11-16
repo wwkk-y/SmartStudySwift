@@ -31,8 +31,10 @@
 
         <!--子模块-->
         <sss-commin.version>1.0-SNAPSHOT</sss-commin.version>
+
         <!--mysql-->
         <mysql-connector.version>8.0.29</mysql-connector.version>
+        <druid.version>1.2.14</druid.version>
     </properties>
 
     <dependencies>
@@ -76,6 +78,12 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
+            <!--集成druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -97,6 +105,7 @@
     <modules>
         <module>sss-security</module>
         <module>sss-common</module>
+        <module>sss-test</module>
     </modules>
 
     <build>

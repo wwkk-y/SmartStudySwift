@@ -37,14 +37,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "file": "00-work log/00-环境搭建/03-引入MySQL.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "98071a885ab6cff4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ignore.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "file": "ignore.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00-work log/00-环境搭建/02-新建通用模块.md",
+                "file": "ignore.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00-work log/00-环境搭建/02-新建通用模块.md"
+                "file": "ignore.md"
               }
             }
           }
@@ -171,16 +183,18 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "5cf945b167580c0c",
+  "active": "98071a885ab6cff4",
   "lastOpenFiles": [
-    "00-work log/00-环境搭建/01-新建子模块.md",
-    "00-work log/00-环境搭建/00-新建空项目(父模块).md",
-    "00-work log/00-环境搭建/02-新建通用模块.md",
-    "00-work log/00-环境搭建/03-引入MySQL.md",
     "01-开发环境.md",
+    "ignore.md",
+    "01-summary/001-数据库连接池Druid.md",
+    "00-work log/00-环境搭建/03-引入MySQL.md",
+    "01-summary",
+    "00-work log/00-环境搭建/01-新建子模块.md",
+    "00-work log/00-环境搭建/02-新建通用模块.md",
+    "00-work log/00-环境搭建/00-新建空项目(父模块).md",
     "00-work log/00-环境搭建",
     "00-work log/004-新建权限管理模块.md",
-    "ignore.md",
     "00-work log"
   ]
 }
