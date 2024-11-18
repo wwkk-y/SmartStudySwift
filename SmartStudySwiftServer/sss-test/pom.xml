@@ -21,9 +21,11 @@
             <groupId>com.sss</groupId>
             <artifactId>sss-common</artifactId>
         </dependency>
+
+        <!--Spring AMQP依赖-->
         <dependency>
-            <groupId>com.sss.mbg</groupId>
-            <artifactId>sss-mbg</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 

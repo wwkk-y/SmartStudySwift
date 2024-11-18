@@ -2,8 +2,6 @@ package com.sss.test.controller;
 
 
 import com.sss.common.service.RedisService;
-import com.sss.mbg.mapper.TmpTest2Mapper;
-import com.sss.mbg.model.TmpTest2;
 import com.sss.test.dao.TmpTest;
 import com.sss.test.mapper.HereTmpTestMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +24,6 @@ public class TestController {
     private HereTmpTestMapper hereTmpTestMapper;
 
     @Resource
-    private TmpTest2Mapper tmpTest2Mapper;
-
-    @Resource
     private RedisService redisService;
 
     @GetMapping
@@ -39,11 +34,6 @@ public class TestController {
     @GetMapping("/MySQL")
     public List<TmpTest> MySQl(){
         return hereTmpTestMapper.queryAll();
-    }
-
-    @GetMapping("/mbg")
-    public List<TmpTest2> mbg(){
-        return tmpTest2Mapper.selectByExample(null);
     }
 
     @RequestMapping("/redis/set/{key}/{value}")

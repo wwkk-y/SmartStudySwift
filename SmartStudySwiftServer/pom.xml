@@ -31,12 +31,11 @@
 
         <!--常用子模块-->
         <sss-common.version>0.0.1-SNAPSHOT</sss-common.version>
-        <sss-mbg.version>0.0.1-SNAPSHOT</sss-mbg.version>
+        <sss-security.version>0.0.1-SNAPSHOT</sss-security.version>
 
         <!--数据库-->
         <mysql-connector.version>8.0.29</mysql-connector.version>
         <druid.version>1.2.14</druid.version>
-        <mybatis-generator.version>1.4.1</mybatis-generator.version>
         <mybatis.version>3.5.10</mybatis.version>
         <pagehelper-starter.version>1.4.5</pagehelper-starter.version>
         <pagehelper.version>5.3.2</pagehelper.version>
@@ -46,6 +45,7 @@
         <swagger-models.version>1.6.0</swagger-models.version>
         <swagger-annotations.version>1.6.0</swagger-annotations.version>
 
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <dependencies>
@@ -85,9 +85,9 @@
                 <version>${sss-common.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sss.mbg</groupId>
-                <artifactId>sss-mbg</artifactId>
-                <version>${sss-mbg.version}</version>
+                <groupId>com.sss</groupId>
+                <artifactId>sss-security</artifactId>
+                <version>${sss-security.version}</version>
             </dependency>
 
             <!--Mysql数据库驱动-->
@@ -107,12 +107,6 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
-            <!-- MyBatis 生成器 -->
-            <dependency>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-core</artifactId>
-                <version>${mybatis-generator.version}</version>
             </dependency>
             <!--MyBatis分页插件starter-->
             <dependency>
@@ -144,6 +138,13 @@
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-annotations.version}</version>
             </dependency>
+
+            <!--JWT(Json Web Token)登录支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -166,7 +167,6 @@
         <module>sss-security</module>
         <module>sss-common</module>
         <module>sss-test</module>
-        <module>sss-mbg</module>
     </modules>
 
     <build>
