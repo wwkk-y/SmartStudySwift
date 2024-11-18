@@ -2,7 +2,7 @@ package com.sss.security.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sss.common.dao.UmsUser;
-import com.sss.security.expression.ExpressionRoot;
+import com.sss.security.config.SecurityLogicConfig;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(UmsUser user, List<String> permissions, List<String> roles) {
         this.user = user;
-        Stream<String> roleStream = roles.stream().map(s -> ExpressionRoot.ROLE_PREFIX + s); // 角色
+        Stream<String> roleStream = roles.stream().map(s -> SecurityLogicConfig.ROLE_PREFIX + s); // 角色
         this.permissions = Stream.concat(roleStream, permissions.stream()).collect(Collectors.toList()); // 权限
         // 权限 = 角色 + 角色权限
         authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());

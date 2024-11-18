@@ -21,6 +21,10 @@
             <groupId>com.sss</groupId>
             <artifactId>sss-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sss</groupId>
+            <artifactId>sss-security</artifactId>
+        </dependency>
 
         <!--Spring AMQP依赖-->
         <dependency>

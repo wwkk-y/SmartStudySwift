@@ -32,8 +32,8 @@ public class JWTUtil {
     private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+    @Value("${jwt.tokenPrefix}")
+    public String tokenPrefix; // FIXME
 
     /**
      * 根据负责生成JWT的token
@@ -129,7 +129,7 @@ public class JWTUtil {
         if(StrUtil.isEmpty(oldToken)){
             return null;
         }
-        String token = oldToken.substring(tokenHead.length());
+        String token = oldToken.substring(tokenPrefix.length());
         if(StrUtil.isEmpty(token)){
             return null;
         }

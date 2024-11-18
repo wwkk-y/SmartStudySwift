@@ -24,8 +24,14 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // 开启PreAuthorize注解, 可使用权限
+@EnableMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+) // 开启权限注解
 public class SecurityLogicConfig {
+    public static final String ROLE_PREFIX = "ROLE_"; // 角色权限前缀
+
     @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig; // url白名单
     @Resource

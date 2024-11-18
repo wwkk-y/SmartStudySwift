@@ -40,15 +40,19 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith(tokenPrefix)) {
             String authToken = authHeader.substring(tokenPrefix.length());// The part after "Bearer "
             String username = jwtUtil.getUserNameFromToken(authToken);
-            LOGGER.info("checking username:{}", username);
+            LOGGER.info("checking username: {}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 根据用户名获取用户信息
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (jwtUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    LOGGER.info("authenticated user:{}", username);
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // 增强认证过程的安全性
+                    LOGGER.info("authenticated user: {}", username);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

@@ -25,3 +25,4 @@ spring:
     username: test
     password: test
     publisher-returns: true #消息发送到队列确认
+
