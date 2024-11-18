@@ -1,4 +1,4 @@
-package com.sss.security;
+package com.sss.common.security;
 
 public class Main {
     public static void main(String[] args) {

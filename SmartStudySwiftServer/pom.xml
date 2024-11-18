@@ -29,12 +29,23 @@
 
         <hutool.version>5.8.9</hutool.version>
 
-        <!--子模块-->
-        <sss-commin.version>1.0-SNAPSHOT</sss-commin.version>
+        <!--常用子模块-->
+        <sss-common.version>0.0.1-SNAPSHOT</sss-common.version>
+        <sss-mbg.version>0.0.1-SNAPSHOT</sss-mbg.version>
 
-        <!--mysql-->
+        <!--数据库-->
         <mysql-connector.version>8.0.29</mysql-connector.version>
         <druid.version>1.2.14</druid.version>
+        <mybatis-generator.version>1.4.1</mybatis-generator.version>
+        <mybatis.version>3.5.10</mybatis.version>
+        <pagehelper-starter.version>1.4.5</pagehelper-starter.version>
+        <pagehelper.version>5.3.2</pagehelper.version>
+
+        <!--swagger相关-->
+        <springfox-swagger.version>3.0.0</springfox-swagger.version>
+        <swagger-models.version>1.6.0</swagger-models.version>
+        <swagger-annotations.version>1.6.0</swagger-annotations.version>
+
     </properties>
 
     <dependencies>
@@ -66,12 +77,19 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!--mall通用模块-->
+
+            <!--常用子模块-->
             <dependency>
                 <groupId>com.sss</groupId>
                 <artifactId>sss-common</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${sss-common.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sss.mbg</groupId>
+                <artifactId>sss-mbg</artifactId>
+                <version>${sss-mbg.version}</version>
+            </dependency>
+
             <!--Mysql数据库驱动-->
             <dependency>
                 <groupId>mysql</groupId>
@@ -83,6 +101,48 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <!-- MyBatis-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- MyBatis 生成器 -->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis-generator.version}</version>
+            </dependency>
+            <!--MyBatis分页插件starter-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-starter.version}</version>
+            </dependency>
+            <!--MyBatis分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <!--Swagger-UI API文档生产工具-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+            <!--解决Swagger访问主页时的NumberFormatException问题-->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger-models.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -106,6 +166,7 @@
         <module>sss-security</module>
         <module>sss-common</module>
         <module>sss-test</module>
+        <module>sss-mbg</module>
     </modules>
 
     <build>

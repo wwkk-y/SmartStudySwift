@@ -9,10 +9,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sss-test</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>sss-security</name>
-    <description>sss-security project for sss</description>
+    <groupId>com.sss.mbg</groupId>
+    <artifactId>sss-mbg</artifactId>
+    <name>sss-mbg</name>
+    <description>sss-mbg project for sss</description>
     <!--打包成jar-->
     <packaging>jar</packaging>
 
@@ -22,8 +22,20 @@
             <artifactId>sss-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sss.mbg</groupId>
-            <artifactId>sss-mbg</artifactId>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 

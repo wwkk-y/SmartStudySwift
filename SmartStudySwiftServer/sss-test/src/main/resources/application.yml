@@ -3,10 +3,14 @@ spring:
     name: sss-test
   profiles:
     active: dev #默认为开发环境
-  servlet:
-    multipart:
-      enabled: true #开启文件上传
-      max-file-size: 10MB #限制文件上传大小为10M
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+server:
+  port: 8090
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml # 映射文件目录
+    - classpath*:com/**/mapper/*.xml # 不但扫描当前JAR，扫描所有JAR,主要作用：扫描mbg代码生成器的mapper
