@@ -1,9 +1,12 @@
 package com.sss.common.api;
 
 
+import lombok.ToString;
+
 /**
  * 通用返回结果封装类
  */
+@ToString
 public class RResult<T> {
     /**
      * 状态码
