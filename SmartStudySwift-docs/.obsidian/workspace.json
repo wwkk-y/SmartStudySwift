@@ -4,59 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "d7b2b2291b797807",
+        "id": "e6294c24a642c8c2",
         "type": "tabs",
         "children": [
           {
-            "id": "386a81fd492c1fb1",
+            "id": "f280bf312b12e9ca",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00-work log/00-环境搭建/00-新建空项目(父模块).md",
+                "file": "00-work log/01-业务/01-权限管理模块.md",
                 "mode": "source",
                 "source": false
-              }
-            }
-          },
-          {
-            "id": "16946a040e3ad92b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00-work log/00-环境搭建/01-新建子模块.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5cf945b167580c0c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00-work log/00-环境搭建/03-引入MySQL.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "98071a885ab6cff4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ignore.md",
-                "mode": "source",
-                "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "01-权限管理模块"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -76,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
@@ -91,7 +58,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
@@ -99,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ]
@@ -122,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ignore.md",
+                "file": "00-work log/01-业务/01-权限管理模块.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,7 +101,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "01-权限管理模块 的反向链接列表"
             }
           },
           {
@@ -139,10 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "ignore.md",
+                "file": "00-work log/01-业务/01-权限管理模块.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "01-权限管理模块 的出链列表"
             }
           },
           {
@@ -153,7 +128,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -162,8 +139,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "ignore.md"
-              }
+                "file": "00-work log/01-业务/01-权限管理模块.md"
+              },
+              "icon": "lucide-list",
+              "title": "01-权限管理模块 的大纲"
             }
           }
         ],
@@ -171,7 +150,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 354.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -183,16 +162,33 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "98071a885ab6cff4",
+  "active": "f280bf312b12e9ca",
   "lastOpenFiles": [
-    "01-开发环境.md",
-    "ignore.md",
-    "01-summary/001-数据库连接池Druid.md",
-    "00-work log/00-环境搭建/03-引入MySQL.md",
-    "01-summary",
+    "00-work log/01-业务/02-用户相关模块ums.md",
+    "00-work log/01-业务/01-权限管理模块.md",
+    "00-work log/01-业务/00-统一返回值.md",
+    "00-work log/00-环境搭建/05-引入redis相关.md",
+    "00-work log/00-环境搭建/04-引入数据库MySQL相关.md",
+    "00-work log/00-环境搭建/03-引入swagger文档.md",
+    "00-work log/00-环境搭建/10-引入日志.md",
+    "00-work log/00-环境搭建/05-新建Mybatis代码生成器模块mbg.md",
     "00-work log/00-环境搭建/01-新建子模块.md",
-    "00-work log/00-环境搭建/02-新建通用模块.md",
+    "00-work log/01-业务/_file/Pasted image 20241118224205.png",
+    "00-work log/01-业务/_file",
+    "01-开发环境.md",
+    "00-work log/01-业务",
+    "00-work log/未命名.md",
+    "00-work log/01-业务.md",
+    "00-work log/00-环境搭建/07-引入RabbitMQ相关.md",
+    "00-work log/00-环境搭建/_file/Pasted image 20241118163805.png",
+    "00-work log/00-环境搭建/_file",
+    "Pasted image 20241118163739.png",
+    "ignore.md",
+    "00-work log/00-环境搭建/02-新建通用模块common.md",
     "00-work log/00-环境搭建/00-新建空项目(父模块).md",
+    "01-summary/001-ant_path_matcher和path_pattern_parser.md",
+    "01-summary/001-数据库连接池Druid.md",
+    "01-summary",
     "00-work log/00-环境搭建",
     "00-work log/004-新建权限管理模块.md",
     "00-work log"
