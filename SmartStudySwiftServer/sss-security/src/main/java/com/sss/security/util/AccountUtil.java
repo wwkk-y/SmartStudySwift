@@ -28,7 +28,7 @@ public class AccountUtil {
      * 返回当前登录的用户
      * @return 未登录返回 null
      */
-    public UmsUserDao getCurUser(){
+    public UmsUserDao getCurAccount(){
         UserDetailsImpl loginUser = null;
         try{
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
