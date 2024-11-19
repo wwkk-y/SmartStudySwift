@@ -1,6 +1,7 @@
 package com.sss.security.filter;
 
 import com.sss.common.service.RedisService;
+import com.sss.security.config.SecurityConstConfig;
 import com.sss.security.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private String tokenPrefix;
     @Resource
     private RedisService redisService;
-    private static final String TOKEN_REDIS_PREFIX = "token_";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -49,7 +49,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String username = jwtUtil.getUserNameFromToken(authToken);
             LOGGER.info("checking username: {}", username);
 
-            if (redisService.hasKey(TOKEN_REDIS_PREFIX + authHeader) && // 看过期没有
+            if (redisService.hasKey(SecurityConstConfig.TOKEN_REDIS_PREFIX + authHeader) && // 看过期没有
                     username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 放置用户信息及其权限信息到上下文
 

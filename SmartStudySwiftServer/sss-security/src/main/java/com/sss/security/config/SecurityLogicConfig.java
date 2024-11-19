@@ -30,8 +30,6 @@ import javax.annotation.Resource;
         jsr250Enabled = true
 ) // 开启权限注解
 public class SecurityLogicConfig {
-    public static final String ROLE_PREFIX = "ROLE_"; // 角色权限前缀
-
     @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig; // url白名单
     @Resource
