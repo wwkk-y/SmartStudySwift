@@ -1,7 +1,5 @@
 package com.sss.security.filter;
 
-import com.sss.common.api.RCode;
-import com.sss.common.api.RException;
 import com.sss.common.service.RedisService;
 import com.sss.security.util.JWTUtil;
 import org.slf4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
