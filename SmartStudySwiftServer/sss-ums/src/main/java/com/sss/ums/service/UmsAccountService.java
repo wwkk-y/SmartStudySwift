@@ -35,7 +35,7 @@ public class UmsAccountService {
             throw new RException("密码错误");
         }
 
-        return accountUtil.loginUsername(username);
+        return accountUtil.loginAccount(username);
     }
 
     public String loginByEmail(@NonNull String email, @NonNull String password){
@@ -47,7 +47,7 @@ public class UmsAccountService {
             throw new RException("密码错误");
         }
 
-        return accountUtil.loginUsername(account.getUsername());
+        return accountUtil.loginAccount(account.getUsername());
     }
 
     public boolean registerAccount(@NonNull @Valid AccountRegisterVo account) {

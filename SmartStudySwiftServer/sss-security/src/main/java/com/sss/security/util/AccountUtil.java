@@ -2,6 +2,7 @@ package com.sss.security.util;
 
 import com.sss.common.service.RedisService;
 import com.sss.security.config.SecurityConstConfig;
+import com.sss.security.dao.UmsUserDao;
 import com.sss.security.domain.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,7 +28,7 @@ public class AccountUtil {
      * 返回当前登录的用户
      * @return 未登录返回 null
      */
-    public UserDetailsImpl getCurUser(){
+    public UmsUserDao getCurUser(){
         UserDetailsImpl loginUser = null;
         try{
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
@@ -36,7 +37,7 @@ public class AccountUtil {
             return null;
         }
 
-        return loginUser;
+        return loginUser.getUser();
     }
 
     /**
@@ -51,7 +52,7 @@ public class AccountUtil {
      * 登录用户并返回token
      * @return token
      */
-    public String loginUsername(String username) {
+    public String loginAccount(String username) {
         String token = jwtUtil.generateTokenFromUsername(username);
         redisService.set(SecurityConstConfig.TOKEN_REDIS_PREFIX + token, true, expiration);
         return token;
