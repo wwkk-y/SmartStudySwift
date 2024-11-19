@@ -33,7 +33,7 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
     @Value("${jwt.tokenPrefix}")
-    public String tokenPrefix; // FIXME
+    private String tokenPrefix;
 
     /**
      * 根据负责生成JWT的token
@@ -116,6 +116,16 @@ public class JWTUtil {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_CREATED, new Date());
+        return generateToken(claims);
+    }
+
+    /**
+     * 根据用户名生成token
+     */
+    public String generateTokenFromUsername(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_KEY_USERNAME, username);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }

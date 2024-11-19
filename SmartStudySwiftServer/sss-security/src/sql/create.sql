@@ -8,8 +8,8 @@ create table ums_user
     nick_name            varchar(200) comment '昵称',
     note                 varchar(500) comment '备注信息',
     login_time           datetime comment '最后登录时间',
-    create_time          datetime comment '创建时间',
-    update_time          datetime comment '修改时间',
+    create_time          datetime comment '创建时间' default current_timestamp,
+    update_time          datetime comment '修改时间' on update current_timestamp,
     status               int(1) default 1 comment '帐号启用状态：0->禁用；1->启用',
     primary key (id)
 );
@@ -20,8 +20,8 @@ create table ums_role
     name                 varchar(100) comment '名称',
     description          varchar(500) comment '描述',
     sort                 int default 0,
-    create_time          datetime comment '创建时间',
-    update_time          datetime comment '修改时间',
+    create_time          datetime comment '创建时间' default current_timestamp,
+    update_time          datetime comment '修改时间' on update current_timestamp,
     status               int(1) default 1 comment '启用状态：0->禁用；1->启用',
     primary key (id)
 );
@@ -40,8 +40,8 @@ create table ums_permission
     name                 varchar(100) comment '名称',
     description          varchar(500) comment '描述',
     sort                 int default 0,
-    create_time          datetime comment '创建时间',
-    update_time          datetime comment '修改时间',
+    create_time          datetime comment '创建时间' default current_timestamp,
+    update_time          datetime comment '修改时间' on update current_timestamp,
     status               int(1) default 1 comment '启用状态：0->禁用；1->启用',
     primary key (id)
 );
