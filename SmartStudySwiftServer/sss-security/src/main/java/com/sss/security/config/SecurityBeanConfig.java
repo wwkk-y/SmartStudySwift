@@ -2,6 +2,7 @@ package com.sss.security.config;
 
 import com.sss.security.filter.JwtAuthenticationTokenFilter;
 import com.sss.security.handler.SecurityExceptionHandler;
+import com.sss.security.util.AccountUtil;
 import com.sss.security.util.JWTUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,5 +39,10 @@ public class SecurityBeanConfig {
     @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
         return new JwtAuthenticationTokenFilter();
+    }
+
+    @Bean
+    public AccountUtil securityUtil(){
+        return new AccountUtil();
     }
 }

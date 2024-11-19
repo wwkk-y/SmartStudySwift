@@ -2,21 +2,17 @@ package com.sss.ums.service;
 
 import com.sss.common.api.RException;
 import com.sss.common.dao.UmsUser;
-import com.sss.common.service.RedisService;
-import com.sss.security.config.SecurityConstConfig;
-import com.sss.security.util.JWTUtil;
+import com.sss.security.util.AccountUtil;
 import com.sss.ums.mapper.UmsAccountMapper;
 import com.sss.ums.vo.AccountRegisterVo;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 
 @Service
 @Slf4j
@@ -24,15 +20,11 @@ import javax.validation.constraints.NotEmpty;
 public class UmsAccountService {
 
     @Resource
-    private RedisService redisService;
-    @Resource
-    private JWTUtil jwtUtil;
+    private AccountUtil accountUtil;
     @Resource
     private UmsAccountMapper umsAccountMapper;
     @Resource
     private PasswordEncoder passwordEncoder;
-    @Value("${jwt.expiration}")
-    private Long expiration;
 
     public String loginByUsername(@NonNull String username, @NonNull String password){
         UmsUser account = umsAccountMapper.getUserAccountByUsername(username);
@@ -43,11 +35,7 @@ public class UmsAccountService {
             throw new RException("密码错误");
         }
 
-        // redis中设置token表示登录
-        String token = jwtUtil.generateTokenFromUsername(username);
-        redisService.set(SecurityConstConfig.TOKEN_REDIS_PREFIX + token, true, expiration);
-
-        return token;
+        return accountUtil.loginUsername(username);
     }
 
     public String loginByEmail(@NonNull String email, @NonNull String password){
@@ -59,11 +47,7 @@ public class UmsAccountService {
             throw new RException("密码错误");
         }
 
-        // redis中设置token表示登录
-        String token = jwtUtil.generateTokenFromUsername(account.getUsername());
-        redisService.set(SecurityConstConfig.TOKEN_REDIS_PREFIX + token, true, expiration);
-
-        return token;
+        return accountUtil.loginUsername(account.getUsername());
     }
 
     public boolean registerAccount(@NonNull @Valid AccountRegisterVo account) {

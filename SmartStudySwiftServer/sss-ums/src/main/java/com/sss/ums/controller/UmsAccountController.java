@@ -1,16 +1,17 @@
 package com.sss.ums.controller;
 
 import com.sss.common.api.RResult;
+import com.sss.security.util.AccountUtil;
 import com.sss.ums.service.UmsAccountService;
 import com.sss.ums.vo.AccountLoginVo;
 import com.sss.ums.vo.AccountRegisterVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -21,6 +22,8 @@ public class UmsAccountController {
 
     @Resource
     private UmsAccountService umsAccountService;
+    @Resource
+    private AccountUtil accountUtil;
 
     @PostMapping("/login")
     @ApiOperation("登录 返回token")
@@ -53,4 +56,10 @@ public class UmsAccountController {
         return RResult.success(umsAccountService.registerAccount(account));
     }
 
+    @PostMapping("/logout")
+    @ApiOperation("当前账号下线")
+    public RResult<String> logout(HttpServletRequest request){
+        accountUtil.logoutCurAccount(request);
+        return RResult.success("");
+    }
 }
