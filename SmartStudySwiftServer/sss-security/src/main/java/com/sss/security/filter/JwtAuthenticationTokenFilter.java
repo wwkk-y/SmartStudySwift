@@ -1,5 +1,8 @@
 package com.sss.security.filter;
 
+import com.sss.common.api.RCode;
+import com.sss.common.api.RException;
+import com.sss.common.service.RedisService;
 import com.sss.security.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,17 +36,26 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private String tokenKey;
     @Value("${jwt.tokenPrefix}")
     private String tokenPrefix;
+    @Resource
+    private RedisService redisService;
+    private static final String TOKEN_REDIS_PREFIX = "token_";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(tokenKey);
+
         if (authHeader != null && authHeader.startsWith(tokenPrefix)) {
+            // 去掉前缀，解析 token -> username
             String authToken = authHeader.substring(tokenPrefix.length());// The part after "Bearer "
             String username = jwtUtil.getUserNameFromToken(authToken);
             LOGGER.info("checking username: {}", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            if (redisService.hasKey(TOKEN_REDIS_PREFIX + authHeader) && // 看过期没有
+                    username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                // 放置用户信息及其权限信息到上下文
+
                 // 根据用户名获取用户信息
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 

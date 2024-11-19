@@ -1,6 +1,7 @@
 package com.sss.test.controller;
 
 
+import com.sss.common.api.RException;
 import com.sss.common.service.RedisService;
 import com.sss.security.util.JWTUtil;
 import com.sss.test.dao.TmpTest;
@@ -102,5 +103,12 @@ public class TestController {
                    return false;
                }
            });
+    }
+
+    @GetMapping("/error/{message}")
+    public String error(@PathVariable String message){
+        throw new RException(message);
+
+//        return "success";
     }
 }
