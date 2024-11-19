@@ -6,6 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages="com.sss")
 public class SssTestApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SssTestApplication.class);
+        SpringApplication.run(SssTestApplication.class, args);
     }
 }

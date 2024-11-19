@@ -1,4 +1,4 @@
-package com.sss.test.config;
+package com.sss.ums.config;
 
 import com.sss.common.config.BaseSwaggerConfig;
 import com.sss.common.domain.SwaggerProperties;
@@ -17,10 +17,10 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     @Override
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
-                .apiBasePackage("com.sss.test.controller") // 接口扫描路径
-                .title("智学速练(SmartStudySwift)后台") // 标题
+                .apiBasePackage("com.sss.ums.controller") // 接口扫描路径
+                .title("智学速练(SmartStudySwift)后台-ums模块") // 标题
                 .description("智学速练后台相关接口文档") //  描述
-                .contactName("test") //  关系名
+                .contactName("ums") //  关系名
                 .version("1.0") // 版本
                 .enableSecurity(true)
                 .build();

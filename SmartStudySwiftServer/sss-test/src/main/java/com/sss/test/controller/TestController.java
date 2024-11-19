@@ -65,45 +65,6 @@ public class TestController {
         return "success";
     }
 
-    @PostMapping("/login")
-    public String login(String username){
-           return jwtUtil.tokenPrefix + jwtUtil.generateToken(new UserDetails() {
-               @Override
-               public Collection<? extends GrantedAuthority> getAuthorities() {
-                   return null;
-               }
-
-               @Override
-               public String getPassword() {
-                   return null;
-               }
-
-               @Override
-               public String getUsername() {
-                   return username;
-               }
-
-               @Override
-               public boolean isAccountNonExpired() {
-                   return false;
-               }
-
-               @Override
-               public boolean isAccountNonLocked() {
-                   return false;
-               }
-
-               @Override
-               public boolean isCredentialsNonExpired() {
-                   return false;
-               }
-
-               @Override
-               public boolean isEnabled() {
-                   return false;
-               }
-           });
-    }
 
     @GetMapping("/error/{message}")
     public String error(@PathVariable String message){

@@ -1,4 +1,4 @@
-package com.sss.test.config;
+package com.sss.ums.config;
 
 import com.sss.common.config.BaseRedisConfig;
 import org.springframework.cache.annotation.EnableCaching;

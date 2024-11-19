@@ -14,9 +14,9 @@ public class LoggedTestController {
         return "hello";
     }
 
-    @GetMapping("/role1")
-    @RolesAllowed("ADMIN")
-    public String roleUser(){
+    @GetMapping("/roleManager")
+    @RolesAllowed("manager")
+    public String roleManager(){
         return "success";
     }
 }

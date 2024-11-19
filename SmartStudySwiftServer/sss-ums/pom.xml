@@ -7,14 +7,21 @@
         <groupId>com.sss</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.sss.ums</groupId>
     <artifactId>sss-ums</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>sss-ums</name>
+    <description>sss-ums project for sss</description>
+    <!--打包成jar-->
+    <packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sss</groupId>
+            <artifactId>sss-security</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
