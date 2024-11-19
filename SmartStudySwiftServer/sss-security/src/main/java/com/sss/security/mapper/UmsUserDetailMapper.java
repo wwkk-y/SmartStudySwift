@@ -1,12 +1,12 @@
 package com.sss.security.mapper;
 
-import com.sss.common.dao.UmsUser;
+import com.sss.security.dao.UmsUserDao;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface UmsUserDetailMapper {
-    UmsUser selectUserByUsername(@Param("username") String username);
+    UmsUserDao selectUserByUsername(@Param("username") String username);
 
     List<String> selectRoleNameByUserId(@Param("userId") Long userId);
 

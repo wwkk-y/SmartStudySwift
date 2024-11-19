@@ -1,6 +1,6 @@
 package com.sss.security.service;
 
-import com.sss.common.dao.UmsUser;
+import com.sss.security.dao.UmsUserDao;
 import com.sss.security.domain.UserDetailsImpl;
 import com.sss.security.mapper.UmsUserDetailMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据username获取用户
-        UmsUser umsUser = umsUserDetailMapper.selectUserByUsername(username);
+        UmsUserDao umsUser = umsUserDetailMapper.selectUserByUsername(username);
         if(umsUser == null){
             throw new UsernameNotFoundException("不存在该用户: " + username);
         }

@@ -1,9 +1,8 @@
 package com.sss.security.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sss.common.dao.UmsUser;
 import com.sss.security.config.SecurityConstConfig;
-import com.sss.security.config.SecurityLogicConfig;
+import com.sss.security.dao.UmsUserDao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,14 +13,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class UserDetailsImpl implements UserDetails {
-    private final UmsUser user;
+    private final UmsUserDao user;
 
     private final List<String> permissions; // 权限字符串
 
     @JsonIgnore // 序列化时忽略属性
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UmsUser user, List<String> permissions, List<String> roles) {
+    public UserDetailsImpl(UmsUserDao user, List<String> permissions, List<String> roles) {
         this.user = user;
         Stream<String> roleStream = roles.stream().map(s -> SecurityConstConfig.ROLE_PREFIX + s); // 角色
         this.permissions = Stream.concat(roleStream, permissions.stream()).collect(Collectors.toList()); // 权限
@@ -61,10 +60,11 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus() == 1;
+        // return user.getStatus() == 1;
+        return true;
     }
 
-    public UmsUser getUser(){
+    public UmsUserDao getUser(){
         return user;
     }
 

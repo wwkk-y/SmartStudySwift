@@ -3,8 +3,8 @@
 <mapper namespace="com.sss.security.mapper.UmsUserDetailMapper">
 
 
-    <select id="selectUserByUsername" resultType="com.sss.common.dao.UmsUser">
-        SELECT id, username, icon, email, nick_name, note
+    <select id="selectUserByUsername" resultType="com.sss.security.dao.UmsUserDao">
+        SELECT id, username, icon, email, nick_name, note, login_time
         FROM ums_user
         WHERE username = #{username}
           AND status = 1
