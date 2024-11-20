@@ -77,6 +77,9 @@ mybatis:
   mapper-locations:  
     - classpath:mapper/*.xml # 映射文件目录  
     - classpath*:com/**/mapper-mbg/*.xml # 不但扫描当前JAR，扫描所有JAR,主要作用：扫描其它地方的mapper
+  configuration:  
+	  map-underscore-to-camel-case: true # 下划线转驼峰  
+	  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志
 ```
 - `application-dev.yml` 或者``application-prod.yml``
 ```yml

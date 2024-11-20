@@ -1,12 +1,10 @@
 package com.sss.security.filter;
 
-import com.sss.common.service.RedisService;
-import com.sss.security.config.SecurityConstConfig;
+import com.sss.security.util.AccountUtil;
 import com.sss.security.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,37 +28,32 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
     @Autowired
     private JWTUtil jwtUtil;
-    @Value("${jwt.tokenKey}")
-    private String tokenKey;
-    @Value("${jwt.tokenPrefix}")
-    private String tokenPrefix;
     @Resource
-    private RedisService redisService;
+    private AccountUtil accountUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        String authHeader = request.getHeader(tokenKey);
+        String token = jwtUtil.getCurToken(request);
 
-        if (authHeader != null && authHeader.startsWith(tokenPrefix)) {
+        if (token != null) {
             // 去掉前缀，解析 token -> username
-            String authToken = authHeader.substring(tokenPrefix.length());// The part after "Bearer "
-            String username = jwtUtil.getUserNameFromToken(authToken);
+            String username = jwtUtil.getUserNameFromToken(token);
             LOGGER.info("checking username: {}", username);
 
-            if (redisService.hasKey(SecurityConstConfig.TOKEN_REDIS_PREFIX + authHeader) && // 看过期没有
-                    username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
+                    && accountUtil.notExpire(username, token) // 登录没有过期时
+            ) {
                 // 放置用户信息及其权限信息到上下文
-
                 // 根据用户名获取用户信息
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                if (jwtUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails,
+                if (jwtUtil.validateToken(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken( // 上下文用户信息
+                            userDetails, // 用户信息
                             null,
-                            userDetails.getAuthorities()
+                            userDetails.getAuthorities() // 权限
                     );
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // 增强认证过程的安全性
                     LOGGER.info("authenticated user: {}", username);

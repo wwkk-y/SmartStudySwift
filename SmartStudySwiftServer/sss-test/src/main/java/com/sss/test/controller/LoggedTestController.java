@@ -15,7 +15,7 @@ public class LoggedTestController {
     }
 
     @GetMapping("/roleManager")
-    @RolesAllowed("manager")
+    @RolesAllowed("MANAGER")
     public String roleManager(){
         return "success";
     }

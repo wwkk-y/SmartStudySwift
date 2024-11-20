@@ -18,8 +18,9 @@ mybatis:
 jwt:
   tokenKey: Authorization #JWT存储的请求头
   secret: sss-security-secret #JWT加解密使用的密钥
-  expiration: 604800 #JWT的超期限时间(60*60*24*7)
-  tokenPrefix: 'Bearer '  #JWT负载中拿到开头
+
+login:
+  expiration: 604800 #登录过期时间(token过期时间)(60*60*24*7)
 
 secure:
   ignored:

@@ -3,6 +3,7 @@ package com.sss.security.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sss.security.config.SecurityConstConfig;
 import com.sss.security.dao.UmsUserDao;
+import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,10 +21,9 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore // 序列化时忽略属性
     private final List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(UmsUserDao user, List<String> permissions, List<String> roles) {
+    public UserDetailsImpl(@NonNull UmsUserDao user, @NonNull List<String> roles, @NonNull List<String> permissions) {
         this.user = user;
-        Stream<String> roleStream = roles.stream().map(s -> SecurityConstConfig.ROLE_PREFIX + s); // 角色
-        this.permissions = Stream.concat(roleStream, permissions.stream()).collect(Collectors.toList()); // 权限
+        this.permissions = Stream.concat(roles.stream(), permissions.stream()).collect(Collectors.toList()); // 权限
         // 权限 = 角色 + 角色权限
         authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }

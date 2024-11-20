@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,10 +31,18 @@ public class JWTUtil {
     private static final String CLAIM_KEY_CREATED = "created";
     @Value("${jwt.secret}")
     private String secret;
-    @Value("${jwt.expiration}")
+    @Value("${login.expiration}")
     private Long expiration;
-    @Value("${jwt.tokenPrefix}")
-    private String tokenPrefix;
+    @Value("${jwt.tokenKey}")
+    private String tokenKey;
+
+    /**
+     * 返回当前登录用户的token
+     * @return token
+     */
+    public String getCurToken(HttpServletRequest request){
+        return request.getHeader(tokenKey);
+    }
 
     /**
      * 根据负责生成JWT的token
@@ -88,6 +97,7 @@ public class JWTUtil {
      *
      * @param token       客户端传入的token
      * @param userDetails 从数据库中查询出来的用户信息
+     * @return true 校验合法
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
@@ -111,35 +121,21 @@ public class JWTUtil {
     }
 
     /**
-     * 根据用户信息生成token
+     * 根据用户名生成token
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_USERNAME, username);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
 
     /**
-     * 根据用户名生成token
-     */
-    public String generateTokenFromUsername(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, username);
-        claims.put(CLAIM_KEY_CREATED, new Date());
-        return tokenPrefix + generateToken(claims);
-    }
-
-    /**
      * 当原来的token没过期时是可以刷新的
      *
-     * @param oldToken 带tokenHead的token
+     * @param token token
      */
-    public String refreshHeadToken(String oldToken) {
-        if(StrUtil.isEmpty(oldToken)){
-            return null;
-        }
-        String token = oldToken.substring(tokenPrefix.length());
+    public String refreshToken(String token) {
         if(StrUtil.isEmpty(token)){
             return null;
         }

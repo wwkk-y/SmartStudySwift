@@ -2,8 +2,10 @@ package com.sss.security.dao;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class UmsUserDao {
+public class UmsUserDao implements Serializable {
     private long id;
     private String username;
     private String password;

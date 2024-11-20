@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.sss.common.service.RedisService;
 import com.sss.common.service.RedisServiceImpl.RedisServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -17,11 +21,13 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 /**
  * Redis基础配置
  */
+@Slf4j
 public class BaseRedisConfig {
 
     @Bean
@@ -61,6 +67,28 @@ public class BaseRedisConfig {
     @Bean
     public RedisService redisService(){
         return new RedisServiceImpl();
+    }
+
+    /**
+     * 将redis做为缓存使用, 允许查不到数据和redis宕机
+     */
+    @Bean
+    public RedisService redisCacheService(){
+        // 实现redisService的代理类, 添加异常处理逻辑
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(RedisServiceImpl.class);
+        enhancer.setCallback((MethodInterceptor) (o, method, objects, methodProxy) -> {
+            Object result;
+            try{
+                 result = methodProxy.invokeSuper(o, objects);
+            } catch (Exception e){
+                e.printStackTrace();
+                log.error("redis cache is unusable!");
+                return null;
+            }
+            return result;
+        });
+        return (RedisService) enhancer.create();
     }
 
 }
