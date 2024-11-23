@@ -20,6 +20,12 @@ public interface RedisService {
     void set(String key, Object value);
 
     /**
+     * key不存在时放入[key, value]
+     * @return 放入成功 -> true
+     */
+    boolean setNx(String key, Object value);
+
+    /**
      * 获取属性
      */
     Object get(String key);

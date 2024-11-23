@@ -12,7 +12,8 @@ create table ums_user
     update_time          datetime comment '修改时间' on update current_timestamp,
     status               int(1) default 1 comment '帐号启用状态：0->禁用；1->启用',
     primary key (id),
-    key `idx_username` (username)
+    key `idx_username` (username),
+    key `idx_email` (email(32))
 );
 
 create table ums_role

@@ -46,6 +46,9 @@
         <swagger-annotations.version>1.6.0</swagger-annotations.version>
 
         <jjwt.version>0.9.1</jjwt.version>
+
+        <!--RocketMQ-->
+        <rocket-mq.version>2.2.2</rocket-mq.version>
     </properties>
 
     <dependencies>
@@ -150,6 +153,13 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
+
+            <!--RocketMQ-->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocket-mq.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -173,6 +183,8 @@
         <module>sss-common</module>
         <module>sss-test</module>
         <module>sss-ums</module>
+        <module>sss-rms</module>
+        <module>sss-rms-service</module>
     </modules>
 
     <build>

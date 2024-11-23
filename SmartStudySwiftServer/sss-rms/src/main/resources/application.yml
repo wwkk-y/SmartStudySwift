@@ -1,0 +1,46 @@
+server:
+  port: 9020 # port
+
+spring:
+  application:
+    name: rms # 服务名
+  profiles:
+    active: dev #默认为开发环境 -> application-dev.yml / prod
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 10MB #限制文件上传大小为10M
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml # 映射文件目录
+    - classpath*:com/**/mapper-mbg/*.xml # 不但扫描当前JAR，扫描所有JAR,主要作用：扫描其它地方的mapper
+  configuration:
+    map-underscore-to-camel-case: true # 下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志
+
+jwt:
+  tokenKey: Authorization #JWT存储的请求头
+  secret: sss-security-secret #JWT加解密使用的密钥
+
+login:
+  expiration: 604800 #登录(token)过期时间(60*60*24*7)
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /swagger-resources/**
+      - /**/v2/api-docs
+      - /**/*.html
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.map
+      - /favicon.ico
+      - /druid/**
+      - /actuator/**
+      - /test/**

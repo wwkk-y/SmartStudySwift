@@ -245,6 +245,8 @@ public class SwaggerConfig extends BaseSwaggerConfig {
 
 }
 ```
+### 使用方法
+https://linkis.apache.org/zh-CN/docs/1.4.0/development/swwager/
 ## 页面地址
 ```
 /swagger-ui/
