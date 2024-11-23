@@ -2,11 +2,16 @@ package com.sss.test.controller;
 
 
 import com.sss.common.api.RException;
+import com.sss.common.api.RResult;
 import com.sss.common.service.RedisService;
 import com.sss.security.util.JWTUtil;
 import com.sss.test.dao.TmpTest;
 import com.sss.test.mapper.HereTmpTestMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +36,10 @@ public class TestController {
     @Resource
     private JWTUtil jwtUtil;
 
-    @GetMapping
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
+
+    @GetMapping()
     public String helloWorld(){
         return "hello world";
     }
@@ -72,4 +80,22 @@ public class TestController {
 
 //        return "success";
     }
+
+    @PostMapping("/rocketMQ/send/")
+    public String rocketMQSend(String msg){
+        SendResult sendResult = rocketMQTemplate.syncSend("test-topic", msg);
+        return sendResult.getSendStatus().toString();
+    }
+
+    @GetMapping("/json")
+    public RResult<String> json(){
+        return RResult.success("success");
+    }
+
+    @GetMapping("/timeWait/{ms}")
+    public String timeWait(@PathVariable Long ms) throws InterruptedException {
+        Thread.sleep(ms);
+        return "success";
+    }
+
 }

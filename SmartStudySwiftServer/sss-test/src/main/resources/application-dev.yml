@@ -19,3 +19,12 @@ spring:
     password: # Redis服务器连接密码（默认为空）
     timeout: 300ms # 连接超时时间（毫秒）
 
+rocketmq:
+  name-server: 1.15.232.25:9876
+  producer:
+    group: test-producer-group
+    access-key: # 账号
+    secret-key: # 密码
+  consumer:
+    access-key: # 账号
+    secret-key: # 密码
