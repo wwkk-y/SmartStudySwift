@@ -4,6 +4,7 @@ import com.sss.common.api.RException;
 import com.sss.common.constant.RmsConst;
 import com.sss.common.mapper.MQLogMapper;
 import com.sss.common.service.RedisService;
+import com.sss.common.util.RocketMQSendUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -23,7 +24,7 @@ public class OrderService {
     private RedisService redisService;
 
     @Resource
-    private RocketMQTemplate rocketMQTemplate;
+    private RocketMQSendUtil rocketMQSendUtil;
 
     @Resource
     private MQLogMapper mqLogMapper;
@@ -49,21 +50,7 @@ public class OrderService {
         }
 
         // 发送mq消息
-        rocketMQTemplate.asyncSend(RmsConst.ORDER_PLACE_TOPIC, uk, new SendCallback() {
-            @Override
-            public void onSuccess(SendResult sendResult) {
-                // 日志记录：处理消息丢失
-                mqLogMapper.sendSuccess(sendResult.getMsgId(), RmsConst.ORDER_PLACE_TOPIC, null, uk);
-                log.info("下单成功: " + uk);
-            }
-
-            @Override
-            public void onException(Throwable throwable) {
-                // 日志记录：处理消息丢失
-                mqLogMapper.sendFailed(RmsConst.ORDER_PLACE_TOPIC, null, uk);
-                redisService.del(PLACE_ORDER_PREFIX + uk);
-            }
-        });
+        rocketMQSendUtil.asyncSend(RmsConst.ORDER_PLACE_TOPIC, uk, null);
     }
 
 }

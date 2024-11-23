@@ -11,6 +11,8 @@ public class RmsConst {
 
     private static final String ORDER_PLACE_KEY_GAP = "--place order-->";
 
+    public static final String ORDER_CANCEL_TOPIC = "order-cancel-topic"; // 订单取消消息
+
     /**
      * 生成下单消息key
      * @param uid 用户id

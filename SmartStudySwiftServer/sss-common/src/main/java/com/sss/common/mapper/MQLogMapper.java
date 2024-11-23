@@ -5,23 +5,32 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
 public interface MQLogMapper {
-    @Insert("insert into mq_log(messageId, topic, tag, message, state) " +
-            "values (#{messageId}, #{topic}, #{tag}, #{message}, 0)")
+    @Insert("insert into mq_log(messageId, bid, destination, message, state) " +
+            "values (#{messageId}, #{bid}, #{destination}, #{message}, 0)")
     void sendSuccess(
-            @Param("messageId") String messageId,
-            @Param("topic") String topic, @Param("tag") String tag, @Param("message") String message
+            @Param("messageId") String messageId, @Param("bid") String bid,
+            @Param("destination") String destination, @Param("message") String message
     );
 
-    @Insert("insert into mq_log(topic, tag, message, state) " +
-            "values (#{topic}, #{tag}, #{message}, 1)")
-    void sendFailed(@Param("topic") String topic, @Param("tag") String tag, @Param("message") String message);
+    @Insert("insert into mq_log(bid, destination, message, state, error_msg) " +
+            "values (#{bid}, #{destination}, #{message}, 1, #{errorMsg})")
+    void sendFailed(
+            @Param("bid") String bid,
+            @Param("destination") String destination,
+            @Param("message") String message, @Param("errorMsg") String errorMsg
+    );
 
-    @Update("update mq_log set state = 2 where messageId=#{messageId}")
+    @Update("update mq_log set state = 2 where messageId = #{messageId}")
     void consumeStart(@Param("messageId") String messageId);
 
-    @Update("update mq_log set state = 3 where messageId=#{messageId}")
+    @Update("update mq_log set state = 3 where messageId = #{messageId}")
     void consumeSuccess(@Param("messageId") String messageId);
 
-    @Update("update mq_log set state = 4 and error_msg = #{errorMsg} where messageId=#{messageId}")
-    void consumeError(@Param("messageId") String messageId, @Param("errorMsg") String errorMsg);
+    @Update("update mq_log set state = 4, error_msg = #{errorMsg}, reconsume_times = #{reConsumeTimes} " +
+            "where messageId = #{messageId}")
+    void consumeError(
+            @Param("messageId") String messageId,
+            @Param("errorMsg") String errorMsg,
+            @Param("reConsumeTimes") int reConsumeTimes
+    );
 }

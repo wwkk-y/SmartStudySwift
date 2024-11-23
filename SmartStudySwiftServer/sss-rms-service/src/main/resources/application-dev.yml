@@ -22,3 +22,5 @@ spring:
 
 rocketmq:
   name-server: 1.15.232.25:9876
+  producer:
+    group: rms-service-producer-group

@@ -13,7 +13,6 @@
     <version>${rocket-mq.version}</version>  
 </dependency>
 ```
-
 ## 需要RocketMQ的模块
 - `pom.xml`
 ```xml
@@ -74,5 +73,23 @@ import org.springframework.context.annotation.Import;
 @Import(RocketMQAutoConfiguration.class)  
 public class RocketMQConfig {  
   
+}
+```
+### SpringBoot RocketMQ内部可以发任意消息对象原理
+- 是String -> getBytes转byte[]
+- 是byte[] -> 类型转byte[]
+- 其它 -> 转Json字符串后getBytes
+```java
+if (payloadObj instanceof String) {  
+    payloads = ((String)payloadObj).getBytes(Charset.forName(charset));  
+} else if (payloadObj instanceof byte[]) {  
+    payloads = (byte[])((byte[])message.getPayload());  
+} else {  
+    String jsonObj = (String)messageConverter.fromMessage(message, payloadObj.getClass());  
+    if (null == jsonObj) {  
+        throw new RuntimeException(String.format("empty after conversion [messageConverter:%s,payloadClass:%s,payloadObj:%s]", messageConverter.getClass(), payloadObj.getClass(), payloadObj));  
+    }  
+  
+    payloads = jsonObj.getBytes(Charset.forName(charset));  
 }
 ```
