@@ -61,6 +61,7 @@ public abstract class RocketMQLogListener implements RocketMQListener<MessageExt
                     String.format("topic: '%s', tags: '%s'", msg.getTopic(), msg.getTags()),
                     new String(msg.getBody())
             );
+            return;
         }
 
         try{
