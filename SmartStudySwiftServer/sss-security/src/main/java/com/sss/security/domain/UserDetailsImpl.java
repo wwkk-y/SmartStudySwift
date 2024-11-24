@@ -3,6 +3,7 @@ package com.sss.security.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sss.security.config.SecurityConstConfig;
 import com.sss.security.dao.UmsUserDao;
+import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public class UserDetailsImpl implements UserDetails {
     private final UmsUserDao user;
 

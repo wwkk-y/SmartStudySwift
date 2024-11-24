@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: sss-keep-alive
+  profiles:
+    active: dev #默认为开发环境
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 9040
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml # 映射文件目录
+    - classpath*:com/**/mapper/*.xml # 不但扫描当前JAR，扫描所有JAR,主要作用：扫描其它地方的mapper
+
+jwt:
+  tokenKey: Authorization #JWT存储的请求头
+  secret: sss-security-secret #JWT加解密使用的密钥
+
+login:
+  expiration: 604800 #登录过期时间(token过期时间)(60*60*24*7)
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /swagger-resources/**
+      - /**/v2/api-docs
+      - /**/*.html
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.map
+      - /favicon.ico
+      - /druid/**
+      - /actuator/**
+      - /test/**
+      - /ws/**

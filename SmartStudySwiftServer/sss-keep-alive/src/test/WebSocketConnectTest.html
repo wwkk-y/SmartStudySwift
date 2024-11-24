@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket 测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #message-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 50vh;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        #message-container div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket 测试</h1>
+    <label for="url-input">WebSocket URL:</label>
+    <input type="text" id="url-input" value="ws://localhost:9040/ws/1">
+    <button id="connect-btn">连接</button>
+    <div id="status">未连接</div>
+    
+    <div id="message-container"></div>
+
+    <label for="message-input">消息:</label>
+    <div>
+        <textarea type="text" id="message-input" style="width: 600px; height: 100px; " placeholder="输入消息" ></textarea>
+    </div>
+    <button id="send-btn" disabled>发送</button>
+
+    <script>
+        const connectBtn = document.getElementById('connect-btn');
+        const sendBtn = document.getElementById('send-btn');
+        const urlInput = document.getElementById('url-input');
+        const messageInput = document.getElementById('message-input');
+        const messageContainer = document.getElementById('message-container');
+        const statusDiv = document.getElementById('status');
+
+        let ws;
+
+        function logMessage(message, type = 'server') {
+            const div = document.createElement('div');
+            div.textContent = `${type === 'client' ? '发送: ' : '接收: '}${message}`;
+            messageContainer.appendChild(div);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        connectBtn.addEventListener('click', () => {
+            const url = urlInput.value || 'ws://localhost:9040/ws/1';
+            if (ws) {
+                ws.close();
+            }
+            
+            ws = new WebSocket(url);
+
+            ws.onopen = () => {
+                statusDiv.textContent = '已连接';
+                sendBtn.disabled = false;
+            };
+
+            ws.onmessage = (event) => {
+                logMessage(event.data);
+            };
+
+            ws.onclose = () => {
+                statusDiv.textContent = '连接已关闭';
+                sendBtn.disabled = true;
+            };
+
+            ws.onerror = (error) => {
+                logMessage(`错误: ${error.message}`, 'error');
+            };
+        });
+
+        sendBtn.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(message);
+                logMessage(message, 'client');
+                messageInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -42,11 +42,10 @@ public class OrderService {
         awardMapper.newOrder(uid, awardId, order);
 
          // 订单超时自动取消消息
-        rocketMQSendUtil.asyncSend(
+        rocketMQSendUtil.asyncSendDelay(
                 RmsConst.ORDER_AUTO_CANCEL_TOPIC,
-                MessageBuilder.withPayload(String.valueOf(order.getId()))
-                        .setHeader(RocketMQHeaders.WAIT, 3) // FIXME test 10s
-//                        .setHeader(RocketMQHeaders.DELAY, 16) // 设置延迟级别为16，即30分钟
+                String.valueOf(order.getId()),
+                16 // 设置延迟级别为16，即30分钟
          );
     }
 

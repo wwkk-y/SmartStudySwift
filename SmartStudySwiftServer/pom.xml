@@ -185,6 +185,7 @@
         <module>sss-ums</module>
         <module>sss-rms</module>
         <module>sss-rms-service</module>
+        <module>sss-keep-alive</module>
     </modules>
 
     <build>

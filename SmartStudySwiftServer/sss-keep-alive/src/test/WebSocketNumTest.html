@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Connection Test</title>
+</head>
+<body>
+<script>
+    const maxConnections = 1000; // 尝试建立的最大连接数
+    let activeConnections = 0;
+    let failedConnections = 0;
+
+    function generateUserId() {
+        return Math.floor(Math.random() * 1000000); // 随机生成用户ID
+    }
+
+    function createWebSocketConnection(userId) {
+        const socket = new WebSocket(`ws://localhost:9040/ws/${userId}`);
+
+        socket.onopen = () => {
+            console.log(`Connection opened for user ID: ${userId}`);
+            activeConnections++;
+        };
+
+        socket.onerror = (error) => {
+            console.error(`Error occurred for user ID: ${userId}`, error);
+            failedConnections++;
+        };
+
+        socket.onclose = () => {
+            console.log(`Connection closed for user ID: ${userId}`);
+            activeConnections--;
+        };
+    }
+
+    function startTest() {
+        for (let i = 0; i < maxConnections; i++) {
+            const userId = generateUserId();
+            createWebSocketConnection(userId);
+        }
+    }
+
+    window.onload = () => {
+        console.log('Starting WebSocket connection test...');
+        startTest();
+    };
+
+    setInterval(() => {
+        console.log(`Active connections: ${activeConnections}, Failed connections: ${failedConnections}`);
+    }, 5000); // 每5秒打印一次连接状态
+</script>
+</body>
+</html>

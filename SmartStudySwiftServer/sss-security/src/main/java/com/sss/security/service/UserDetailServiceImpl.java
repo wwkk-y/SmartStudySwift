@@ -23,7 +23,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private RedisService redisCacheService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据username获取用户 使用缓存
         UserPermissionBo userPermissionBo = (UserPermissionBo) redisCacheService.get(SecurityConstConfig.USER_PERMISSION_USERNAME_REDIS_PREFIX + username);
         if(userPermissionBo == null){

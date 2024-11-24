@@ -11,9 +11,9 @@ create table rms_award
     id                   bigint not null auto_increment,
     name                 varchar(64) not null comment '奖品名称',
     pic                  varchar(255) comment '图片',
-    description          varchar(1024) comment '奖品名称',
-    inventory            int comment '库存',
     points               decimal(10,2) comment '所需积分',
+    description          varchar(1024) comment '奖品描述',
+    inventory            int comment '库存',
     publish_status       int(1) comment '上架状态：0->下架；1->上架' default 1,
     verify_status        int(1) comment '审核状态：0->未审核；1->审核通过' default 0,
     sort                 int comment '排序' default 100, -- 100之前的手动控制排序
