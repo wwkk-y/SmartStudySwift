@@ -24,4 +24,9 @@ public class GlobalSetTest {
         }
 
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(String.format("%s: %s", null, "1"));
+    }
 }

@@ -36,7 +36,33 @@ public abstract class RocketMQLogListener implements RocketMQListener<MessageExt
         }
 
         // 开始消费日志
-        mqLogMapper.consumeStart(msg.getMsgId());
+        int circleTimes = 100; // 100 * 50 = 5000ms
+        while(circleTimes > 0){ // 自旋锁 获取日志行
+            int lines = mqLogMapper.consumeStart(msg.getMsgId());
+            if(lines == 0){
+                // WAL 先写日志，保证日志先写进去了
+                try {
+                    //
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                break;
+            }
+
+            circleTimes -= 1;
+        }
+
+        // 获取日志行失败
+        if(circleTimes == 0){
+            mqLogMapper.WALError(
+                    msg.getMsgId(), bid,
+                    String.format("topic: '%s', tags: '%s'", msg.getTopic(), msg.getTags()),
+                    new String(msg.getBody())
+            );
+        }
+
         try{
             // 执行业务
             onLogMessage(msg);
@@ -44,7 +70,7 @@ public abstract class RocketMQLogListener implements RocketMQListener<MessageExt
             // 发生异常，消费出错日志
             mqLogMapper.consumeError(msg.getMsgId(), e.getMessage(), msg.getReconsumeTimes());
 
-            // 后续需要重试
+            // 后续需要重试时，删除去重表消息便于重复消费
             if(msg.getReconsumeTimes() < RocketMQConst.RECONSUME_TIMES){
                 // 小于重试次数次，删除去重表消息，因为后面需要重试
                 globalSetMapper.delete(bid);

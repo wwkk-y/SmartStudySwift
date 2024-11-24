@@ -50,7 +50,7 @@ public class OrderService {
         }
 
         // 发送mq消息
-        rocketMQSendUtil.asyncSend(RmsConst.ORDER_PLACE_TOPIC, uk, null);
+        rocketMQSendUtil.asyncSend(RmsConst.ORDER_PLACE_TOPIC, uk);
     }
 
 }

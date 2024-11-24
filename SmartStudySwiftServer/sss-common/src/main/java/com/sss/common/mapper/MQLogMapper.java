@@ -20,8 +20,17 @@ public interface MQLogMapper {
             @Param("message") String message, @Param("errorMsg") String errorMsg
     );
 
+    @Insert("insert into mq_log(messageId, bid, destination, message, state) " +
+            "values (#{messageId}, #{bid}, #{destination}, #{message}, 5)"
+    )
+    void WALError(
+            @Param("messageId") String messageId, @Param("bid") String bid,
+            @Param("destination") String destination,
+            @Param("message") String message
+    );
+
     @Update("update mq_log set state = 2 where messageId = #{messageId}")
-    void consumeStart(@Param("messageId") String messageId);
+    int consumeStart(@Param("messageId") String messageId);
 
     @Update("update mq_log set state = 3 where messageId = #{messageId}")
     void consumeSuccess(@Param("messageId") String messageId);
