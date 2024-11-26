@@ -6,4 +6,4 @@ spring:
         group: SSS_GROUP
   config:
     import:
-      - nacos:dev.yml?refreshEnabled=true
+      - nacos:prod.yml?refreshEnabled=true

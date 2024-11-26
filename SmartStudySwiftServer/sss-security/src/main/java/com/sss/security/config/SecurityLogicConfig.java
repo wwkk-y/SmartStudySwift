@@ -15,8 +15,15 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 
 /**
@@ -52,8 +59,7 @@ public class SecurityLogicConfig {
         }
 
         //允许跨域请求的OPTIONS请求
-        registry.antMatchers(HttpMethod.OPTIONS)
-                .permitAll();
+        registry.antMatchers(HttpMethod.OPTIONS).permitAll();
 
         registry
                 //任何请求都需要身份认证
@@ -82,5 +88,4 @@ public class SecurityLogicConfig {
 
         return httpSecurity.build();
     }
-
 }
