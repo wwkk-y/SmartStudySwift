@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 106.15.5.247:8848
+      config:
+        group: SSS_GROUP
+  config:
+    import:
+      - nacos:dev.yml?refreshEnabled=true
