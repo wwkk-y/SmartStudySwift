@@ -1,11 +1,7 @@
 <script setup>
 import {RouterView } from 'vue-router'
-import UmsRequst from '@/request/UmsRequst'
 import SssHeader from './components/SssHeader.vue';
 
-function login(username, password) {
-  UmsRequst.login(username, null, password).then(res => console.log(res))
-}
 
 </script>
 
@@ -44,3 +40,4 @@ function login(username, password) {
   padding-right: 20vw;
 }
 </style>
+@/request/UmsRequest

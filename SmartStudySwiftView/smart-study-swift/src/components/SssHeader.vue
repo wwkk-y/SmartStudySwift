@@ -8,17 +8,26 @@
 
         <el-menu-item index="/about">关于我们</el-menu-item>
 
-        <el-sub-menu index="7">
+        <el-menu-item v-show="!tokenStore.getToken()" index="/login">登录</el-menu-item>
+        <el-menu-item v-show="!tokenStore.getToken()" index="/register">注册</el-menu-item>
+
+        <el-sub-menu index="7" v-show="tokenStore.getToken()">
             <template #title>账号</template>
             <el-menu-item index="7-0">设置</el-menu-item>
-            <el-menu-item index="/login">登录</el-menu-item>
-            <el-menu-item index="/register">注册</el-menu-item>
-            <el-menu-item index="7-3">退出</el-menu-item>
+            <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-sub-menu>
     </el-menu>
 </template>
 
 <script setup>
+import { useTokenStore } from "@/stores/token";
+import UmsRequest from '@/request/UmsRequest'
+import { ElMessage } from "element-plus";
+let tokenStore = useTokenStore();
+
+function logout() {
+    UmsRequest.logout().then(() => ElMessage.success('退出成功'))
+}
 
 </script>
 
@@ -28,5 +37,4 @@
     padding-left: 20vw;
     padding-right: 20vw;
 }
-
 </style>

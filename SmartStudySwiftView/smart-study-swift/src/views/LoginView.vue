@@ -51,12 +51,21 @@
 
 <script setup>
 import { ref } from 'vue'
+import UmsRequest from '@/request/UmsRequest'
+import { useTokenStore } from "@/stores/token";
+import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
+
+let router = useRouter();
 
 let usernameOrEmail = ref("")
 let password = ref("")
 
-function loginClick() {
-    console.log('login')
+function loginClick () {
+    UmsRequest.login(usernameOrEmail.value, null, password.value).then(() => {
+       ElMessage.success('登录成功');
+       router.replace('/')
+    });
 }
 
 </script>
@@ -602,4 +611,4 @@ iframe {
         opacity: 1;
     }
 }
-</style>
+</style>@/request/UmsRequest

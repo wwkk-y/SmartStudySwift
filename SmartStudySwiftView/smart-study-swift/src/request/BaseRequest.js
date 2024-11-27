@@ -3,6 +3,8 @@
 // }
 
 import { ElMessage } from "element-plus";
+import { useTokenStore } from "@/stores/token";
+import { useRouter } from 'vue-router';
 
 /**
  * 
@@ -15,7 +17,8 @@ function post(url, body) {
         url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': useTokenStore().getToken()
         },
         body: JSON.stringify(body)
     }).then(response => response.json()).then(res => {
@@ -24,6 +27,10 @@ function post(url, body) {
             if(res.message){
                 ElMessage.error(res.message);
             }
+            if(res.code === 401){
+                useTokenStore().setToken('')
+            }
+            throw new Error(res.code + res.message);
         } 
         return res.data
     }).catch(error => console.error('Error:', error)) 
