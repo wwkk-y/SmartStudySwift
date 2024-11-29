@@ -1,7 +1,9 @@
 <script setup>
 import {RouterView } from 'vue-router'
 import SssHeader from './components/SssHeader.vue';
+import WebsokcetHandler from './request/WebsokcetHandler';
 
+// 强制使用浅色模式
 
 </script>
 
@@ -40,4 +42,3 @@ import SssHeader from './components/SssHeader.vue';
   padding-right: 20vw;
 }
 </style>
-@/request/UmsRequest

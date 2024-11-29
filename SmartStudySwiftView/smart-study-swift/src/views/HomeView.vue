@@ -1,6 +1,6 @@
 <template>
     <div id="home">
-        主页
+        <h2>欢迎使用智学速练</h2>
     </div>
 </template>
 

@@ -60,6 +60,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import UmsRequest from '@/request/UmsRequest';
+import { ElMessage } from 'element-plus';
+import {useRouter} from 'vue-router';
+
+let router = useRouter();
 
 let username = ref("")
 let nickName = ref("")
@@ -67,7 +72,14 @@ let email = ref("")
 let password = ref("")
 
 function registerClick() {
-    console.log('login')
+    UmsRequest.register(username.value, nickName.value, email.value, password.value).then(res => {
+        if(!res){
+            ElMessage.warning('注册失败，用户名或者邮箱重复')
+        } else {
+            ElMessage.success('注册成功');
+            router.push("/login");
+        }
+    })
 }
 
 </script>
@@ -289,12 +301,12 @@ iframe {
 
 .limiter {
     width: 100%;
-    margin-top: 5vh;
+    margin-top: 2vh;
     margin-left: auto;
 }
 
 .container-login100 {
-    padding: 15px;
+    /* padding: 15px; */
     display: grid;
     /* 启用grid布局 */
     place-items: center;

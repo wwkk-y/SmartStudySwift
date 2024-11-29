@@ -8,7 +8,9 @@
                 </span>
 
                 <span class="login100-form-title p-b-48">
-                    <el-icon :size="38" color="grey"><User /></el-icon>
+                    <el-icon :size="38" color="grey">
+                        <User />
+                    </el-icon>
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate="手机号或邮箱格式错误">
@@ -61,10 +63,13 @@ let router = useRouter();
 let usernameOrEmail = ref("")
 let password = ref("")
 
-function loginClick () {
-    UmsRequest.login(usernameOrEmail.value, null, password.value).then(() => {
-       ElMessage.success('登录成功');
-       router.replace('/')
+function loginClick() {
+    UmsRequest.login(usernameOrEmail.value, password.value).then((token) => {
+        if (token) {
+            ElMessage.success('登录成功');
+            router.back();
+            // router.replace('/')
+        }
     });
 }
 
@@ -137,9 +142,10 @@ a:hover {
     color: linear-gradient(left, #21d4fd, #b721ff);
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
+
 /*---------------------------------------------*/
 h1,
 h2,
@@ -150,7 +156,7 @@ h6 {
     margin: 0px;
 }
 
-.p-b-48{
+.p-b-48 {
     margin-top: 5px;
     margin-bottom: 7px;
 }

@@ -4,16 +4,19 @@
         <el-menu-item index="2">题库</el-menu-item>
         <el-menu-item index="3">兑换</el-menu-item>
         <el-menu-item index="4">讨论</el-menu-item>
-        <el-menu-item index="5" style="margin-right: auto">消息</el-menu-item>
+        <el-menu-item index="/chat" style="margin-right: auto">消息</el-menu-item>
 
         <el-menu-item index="/about">关于我们</el-menu-item>
+        <el-menu-item index="|" disabled>|</el-menu-item>
+        <el-menu-item v-show="!tokenStore.token" index="/login">登录</el-menu-item>
+        
+        <el-menu-item v-show="!tokenStore.token" index="/register">注册</el-menu-item>
 
-        <el-menu-item v-show="!tokenStore.getToken()" index="/login">登录</el-menu-item>
-        <el-menu-item v-show="!tokenStore.getToken()" index="/register">注册</el-menu-item>
-
-        <el-sub-menu index="7" v-show="tokenStore.getToken()">
-            <template #title>账号</template>
-            <el-menu-item index="7-0">设置</el-menu-item>
+        <el-sub-menu index="7" v-if="tokenStore.getUser().username">
+            <template #title>
+                <el-avatar shape="circle" :src="`${fileBaseUrl}/${tokenStore.getUser().icon}`" />
+            </template>
+            <el-menu-item index="7-0">账号</el-menu-item>
             <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-sub-menu>
     </el-menu>
@@ -23,10 +26,15 @@
 import { useTokenStore } from "@/stores/token";
 import UmsRequest from '@/request/UmsRequest'
 import { ElMessage } from "element-plus";
+import { fileBaseUrl } from "@/config/UrlConfig";
 let tokenStore = useTokenStore();
 
 function logout() {
-    UmsRequest.logout().then(() => ElMessage.success('退出成功'))
+    UmsRequest.logout().then((msg) => {
+        if(msg){
+            ElMessage.success('退出成功');
+        }
+    })
 }
 
 </script>
