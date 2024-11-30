@@ -17,4 +17,4 @@
 
 ### 聊天模块
 
-![](E:\一些图片\md\2024-12-01-03-10-09-image.png)
+![](SmartStudySwift-docs/_file/2024-12-01-03-10-09-image.png)
