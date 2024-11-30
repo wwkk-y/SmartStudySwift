@@ -1,8 +1,6 @@
 package com.sss.common.dao;
 
-import lombok.ToString;
 
-@ToString
 public class RmsOrder {
 
   private long id;

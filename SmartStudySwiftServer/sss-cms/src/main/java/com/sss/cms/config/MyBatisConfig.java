@@ -1,4 +1,4 @@
-package com.sss.lms.config;
+package com.sss.cms.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

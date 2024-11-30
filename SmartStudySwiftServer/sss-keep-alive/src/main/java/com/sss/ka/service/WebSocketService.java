@@ -20,10 +20,11 @@ import javax.annotation.Resource;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -50,30 +51,64 @@ public class WebSocketService{
 
     private Session session; //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private long userId; // userId
+    private boolean valid; // 做权限校验了才可以发消息，不然1分钟后自动断开
+    private LocalDateTime connectTime; // 当前建立连接的时间，用来判断1分钟内做权限校验没有
 
-    // 用来存在线连接用户信息, List考虑一个用户可以连接多次
-    private static final ConcurrentHashMap<Long, List<Session>> sessionPool = new ConcurrentHashMap<>();
-
+    // 用来存在线连接用户信息, List考虑一个用户可以连接多次 WebSocketService由服务器管理，不是由spring管理，不是单例模式，每个websocket连接创建一个实例
+    private static final ConcurrentHashMap<Long, List<WebSocketService>> websocketServicePool = new ConcurrentHashMap<>();
     private static final AtomicInteger connectNum = new AtomicInteger(0);
+    private static final LinkedBlockingDeque<WebSocketService> validQueue = new LinkedBlockingDeque<>(); // 阻塞队列，用来清除没有做权限校验的连接
+
+    static {
+        // 不断去清除没有做权限校验的连接
+       new Thread(() -> {
+           while(true){
+               try{
+                   WebSocketService first = validQueue.getFirst();
+                   LocalDateTime oneMinuteAgo = LocalDateTime.now().minusMinutes(1);
+                   if(first.connectTime.isBefore(oneMinuteAgo)){
+                       if(!first.valid){
+                           log.warn("websocket 超时关闭连接: {}", first.userId);
+                           first.closeConnection();
+                       }
+                       validQueue.pollFirst(); // 移除元素
+                   }
+               } catch (NoSuchElementException ignored){
+
+               }
+
+               try {
+                   Thread.sleep(10); // 10ms检查一次， 1分钟可处理100 * 60 = 6k个
+               } catch (InterruptedException e) {
+                   throw new RuntimeException(e);
+               }
+           }
+       }).start();
+    }
 
     /**
      * 链接成功调用的方法
      */
     @OnOpen
     public void onOpen(Session session, @PathParam(value="userId") long userId) {
+        log.info("websocket 建立连接: {}", userId);
         log.info("websocket 连接数量: {}", connectNum.incrementAndGet());
 
-        // 由服务器管理，不是由spring管理，需要手动注入bean
+        this.session = session;
+        this.userId = userId;
+        this.valid = false;
+        this.connectTime = LocalDateTime.now();
+
+        websocketServicePool.putIfAbsent(userId, new ArrayList<>());
+        websocketServicePool.get(userId).add(this);
+
+        validQueue.offerLast(this);
+
+        // 由服务器管理，不是由spring管理，需要手动注入bean 放到最后，避免springboot还未初始化
         this.jwtUtil = applicationContext.getBean(JWTUtil.class);
         this.accountUtil = applicationContext.getBean(AccountUtil.class);
         this.userDetailsService = applicationContext.getBean(UserDetailServiceImpl.class);
         this.webSocketLogicService = applicationContext.getBean(WebSocketLogicService.class);
-
-        this.session = session;
-        this.userId = userId;
-        sessionPool.putIfAbsent(userId, new ArrayList<>());
-        sessionPool.get(userId).add(session);
-        log.info("websocket 建立连接: {}", userId);
     }
 
     /**
@@ -81,9 +116,8 @@ public class WebSocketService{
      */
     @OnClose
     public void onClose() {
-        sessionPool.get(userId).remove(session);
+        websocketServicePool.get(userId).remove(this);
         log.info("websocket 断开连接: {}", userId);
-
         log.info("websocket 连接数量: {}", connectNum.decrementAndGet()); //
     }
 
@@ -92,11 +126,10 @@ public class WebSocketService{
      */
     @SneakyThrows
     public void closeConnection() {
-        // 移除 pool session
-        sessionPool.get(userId).remove(session);
         // 断开连接
         log.info("websocket 服务端断开连接: {}", userId);
-        session.close();
+        session.close(); // 会执行onClose
+        onClose();
     }
 
     /**
@@ -135,6 +168,7 @@ public class WebSocketService{
                 closeConnection();
                 return;
             }
+            valid = true; // 已经做了权限校验了
 
             List<String> permissions = userDetails.getPermissions();
             WebSocketLogicMsg logicMsg = WebSocketLogicMsg.builder()
@@ -180,6 +214,11 @@ public class WebSocketService{
      * @param message 信息
      */
     public void sendMessageToClient(@NonNull WebSocketToClientMsg message){
+        if(!valid){
+            log.warn("websocket {} 因未做权限认证导致消息未发送: {};", userId, message.toString());
+            return;
+        }
+
         String jsonStr = JSONUtil.toJsonStr(message);
         if(session.isOpen()){
             session.getAsyncRemote().sendText(jsonStr);
@@ -191,14 +230,11 @@ public class WebSocketService{
      * @param message 消息
      * @param uid uid
      */
-    public static void sendMessageToClient(@NonNull WebSocketToClientMsg message, @NonNull long uid){
-        String jsonStr = JSONUtil.toJsonStr(message);
-        List<Session> sessionList = sessionPool.get(uid);
-        if(sessionList != null){
-            for (Session session : sessionList) {
-                if(session.isOpen()){
-                    session.getAsyncRemote().sendText(jsonStr);
-                }
+    public static void sendMessageToClient(@NonNull WebSocketToClientMsg message, long uid){
+        List<WebSocketService> webSocketServiceList = websocketServicePool.get(uid);
+        if(webSocketServiceList != null){
+            for (WebSocketService webSocketService : webSocketServiceList) {
+                webSocketService.sendMessageToClient(message);
             }
         }
     }
@@ -207,12 +243,9 @@ public class WebSocketService{
      * 广播消息
      */
     public static void broadcastMessageToClient(@NonNull WebSocketToClientMsg message){
-        String jsonStr = JSONUtil.toJsonStr(message);
-        sessionPool.forEach((userId, sessionList) -> {
-            for (Session session : sessionList) {
-                if(session.isOpen()){
-                    session.getAsyncRemote().sendText(jsonStr);
-                }
+        websocketServicePool.forEach((userId, webSocketServiceList) -> {
+            for (WebSocketService webSocketService : webSocketServiceList) {
+                webSocketService.sendMessageToClient(message);
             }
         });
     }

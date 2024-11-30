@@ -1,4 +1,4 @@
-package com.sss.lms.config;
+package com.sss.cms.config;
 
 import com.sss.common.config.BaseRedisConfig;
 import org.springframework.cache.annotation.EnableCaching;

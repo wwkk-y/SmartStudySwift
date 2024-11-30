@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sss.cms.mapper.CmsConversationMapper" >
+<mapper namespace="com.sss.cms.mapper.CmsConversationMapper">
+    <select id="conversationListOfUser" resultType="com.sss.cms.vo.ConversationListVo">
+        select cms_conversation.id as id , cms_conversation.last_msg_id as last_msg_id, cms_conversation.update_time as update_time,
+               ums_user.id  as user_id, ums_user.nick_name as nick_name, ums_user.icon as icon, ums_user.username as user_name
+        from `cms_conversation`
+            join ums_user on ums_user.id != #{uid} and ums_user.status = 1
+                                 and (ums_user.id =  cms_conversation.user_id1 or ums_user.id =  cms_conversation.user_id2)
+                                 <if test="targetName != null and targetName.trim() != ''">
+                                     and (ums_user.nick_name like concat('%', #{targetName}, '%') or ums_user.username like concat('%', #{targetName}, '%'))
+                                 </if>
+        where (cms_conversation.user_id1 = #{uid} or cms_conversation.user_id2 = #{uid})
+        order by cms_conversation.update_time desc
+    </select>
+    <select id="conversationInfo" resultType="com.sss.cms.vo.ConversationListVo">
+        select cms_conversation.id as id , cms_conversation.last_msg_id as last_msg_id, cms_conversation.update_time as update_time,
+               ums_user.id  as user_id, ums_user.nick_name as nick_name, ums_user.icon as icon, ums_user.username as user_name
+        from `cms_conversation`
+        join ums_user on ums_user.id != #{uid} and ums_user.status = 1
+        and (ums_user.id =  cms_conversation.user_id1 or ums_user.id =  cms_conversation.user_id2)
+        where cms_conversation.id = #{conversationId}
+    </select>
+    <select id="getUnreadMsgNum" resultType="java.lang.Long">
+        select count(*)
+        from cms_unread_message join cms_message on cms_message.id = cms_unread_message.message_id and cms_message.conversation_id = #{conversationId}
+        where cms_unread_message.user_id = #{uid}
+    </select>
+
+    <select id="getLastMsgInfo" resultType="com.sss.cms.vo.LastMessageVo">
+        select id, type, content from cms_message
+        where id = #{msgId}
+    </select>
 </mapper>

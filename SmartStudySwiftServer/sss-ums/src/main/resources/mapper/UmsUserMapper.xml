@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sss.ums.mapper.UmsUserMapper" >
+<mapper namespace="com.sss.ums.mapper.UmsUserMapper">
+    <select id="queryUmsUserList" resultType="com.sss.ums.vo.UmsUserVo">
+        select id, username, icon, email, nick_name, note, login_time
+        from ums_user
+        where status = 1
+        <if test="name != null and name.trim() != ''">
+            and (
+                username like concat('%', #{name}, '%')
+                    or nick_name like concat('%', #{name}, '%')
+                )
+        </if>
+    </select>
 </mapper>

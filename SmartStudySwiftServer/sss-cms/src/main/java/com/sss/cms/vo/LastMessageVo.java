@@ -3,7 +3,7 @@ package com.sss.cms.vo;
 import lombok.Data;
 
 @Data
-public class MessageVo {
+public class LastMessageVo {
     private long id;
     private String type;
     private String content;

@@ -1,6 +1,7 @@
 package com.sss.ums.controller;
 
 import com.sss.common.api.RResult;
+import com.sss.security.dao.UmsUserDao;
 import com.sss.security.util.AccountUtil;
 import com.sss.ums.service.UmsAccountService;
 import com.sss.ums.vo.AccountLoginVo;
@@ -31,7 +32,7 @@ public class UmsAccountController {
             @Valid @RequestBody AccountLoginVo account
     ){
         if(!StringUtils.hasText(account.getUsername())
-                && !StringUtils.hasText(account.getUsername())){
+                && !StringUtils.hasText(account.getEmail())){
             return RResult.failed("请输入邮箱或者手机号");
         }
 
@@ -60,6 +61,11 @@ public class UmsAccountController {
     @ApiOperation("当前账号下线")
     public RResult<String> logout(HttpServletRequest request){
         accountUtil.logoutCurAccount(request);
-        return RResult.success("");
+        return RResult.success("成功");
+    }
+
+    @GetMapping("/info")
+    public RResult<UmsUserDao> info(){
+        return RResult.success(accountUtil.getCurAccount());
     }
 }

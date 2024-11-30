@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sss-ums
+    name: sss-qms
   profiles:
     active: dev #默认为开发环境
   mvc:
@@ -8,7 +8,7 @@ spring:
       matching-strategy: ant_path_matcher
 
 server:
-  port: 9010
+  port: 9060
 
 mybatis:
   mapper-locations:

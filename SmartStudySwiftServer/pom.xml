@@ -22,7 +22,7 @@
 
     <!--版本信息-->
     <properties>
-        <spring-boot.version>2.6.13</spring-boot.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -52,6 +52,7 @@
 
         <!--spring cloud alibaba-->
         <cloud-alibaba.version>2021.0.5.0</cloud-alibaba.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -172,6 +173,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -199,6 +207,7 @@
         <module>sss-rms-service</module>
         <module>sss-keep-alive</module>
         <module>sss-cms</module>
+        <module>sss-qms</module>
     </modules>
 
     <build>

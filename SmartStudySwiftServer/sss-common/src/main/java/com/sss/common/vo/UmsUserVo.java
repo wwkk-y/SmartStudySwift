@@ -1,4 +1,4 @@
-package com.sss.ums.vo;
+package com.sss.common.vo;
 
 import lombok.Data;
 

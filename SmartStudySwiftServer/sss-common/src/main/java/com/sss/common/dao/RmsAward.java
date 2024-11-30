@@ -6,9 +6,9 @@ public class RmsAward {
   private long id;
   private String name;
   private String pic;
+  private double points;
   private String description;
   private long inventory;
-  private double points;
   private long publishStatus;
   private long verifyStatus;
   private long sort;
@@ -44,6 +44,15 @@ public class RmsAward {
   }
 
 
+  public double getPoints() {
+    return points;
+  }
+
+  public void setPoints(double points) {
+    this.points = points;
+  }
+
+
   public String getDescription() {
     return description;
   }
@@ -59,15 +68,6 @@ public class RmsAward {
 
   public void setInventory(long inventory) {
     this.inventory = inventory;
-  }
-
-
-  public double getPoints() {
-    return points;
-  }
-
-  public void setPoints(double points) {
-    this.points = points;
   }
 
 

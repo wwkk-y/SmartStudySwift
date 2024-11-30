@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
@@ -37,7 +38,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
         String token = jwtUtil.getCurToken(request);
 
-        if (token != null) {
+        if (StringUtils.hasText(token)) {
             // 去掉前缀，解析 token -> username
             String username = jwtUtil.getUserNameFromToken(token);
             LOGGER.info("checking username: {}", username);
