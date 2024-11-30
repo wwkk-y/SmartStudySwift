@@ -1,7 +1,7 @@
 <template>
     <el-menu class="header" :router="true" mode="horizontal" :ellipsis="false">
         <el-menu-item index="/">首页</el-menu-item>
-        <el-menu-item index="2">题库</el-menu-item>
+        <el-menu-item index="/question/bank">题库</el-menu-item>
         <el-menu-item index="3">兑换</el-menu-item>
         <el-menu-item index="4">讨论</el-menu-item>
         <el-menu-item index="/chat" style="margin-right: auto">消息</el-menu-item>

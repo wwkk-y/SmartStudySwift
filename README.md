@@ -17,4 +17,7 @@
 
 ### 聊天模块
 
-![](SmartStudySwift-docs/_file/2024-12-01-03-10-09-image.png)
+![](SmartStudySwift-docs/_file/chat.png)
+
+- 支持已读，未读，撤回
+- 支持文字，图片，文件多种消息类型

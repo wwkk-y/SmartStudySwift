@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ignore.md",
+                "file": "00-work log/01-业务/07-题库系统qms.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ignore"
-            }
-          },
-          {
-            "id": "e67377ca0cb39cf7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "temp.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "temp"
+              "title": "07-题库系统qms"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -178,10 +163,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e67377ca0cb39cf7",
+  "active": "8e49163ae7523af4",
   "lastOpenFiles": [
-    "ignore.md",
+    "_file/chat.png",
+    "_file/VB3I3][BH8G3$ZP%MEUK4{6.png",
+    "00-work log/03-前端/01-vue默认项目禁用暗黑模式.md",
+    "01-开发环境.md",
     "temp.md",
+    "ignore.md",
     "00-work log/01-业务/06-聊天模块cms.md",
     "00-work log/00-环境搭建/14-引入openfeign.md",
     "00-work log/00-环境搭建/13-使用pagehelper.md",
@@ -189,7 +178,6 @@
     "00-work log/01-业务/05-长连接系统KeepAlive.md",
     "00-work log/00-环境搭建/08-引入WebSocket相关.md",
     "00-work log/00-环境搭建/06-参数校验.md",
-    "00-work log/03-前端/01-vue默认项目禁用暗黑模式.md",
     "00-work log/03-前端",
     "06.1-往客户端推新消息时.md",
     "00-work log/02-部署/11-安装nginx.md",
@@ -198,7 +186,6 @@
     "00-work log/02-部署/12-安装MinIO.md",
     "00-work log/02-部署/_file/Pasted image 20241128183201.png",
     "00-work log/02-部署/02-docker安装及使用.md",
-    "01-开发环境.md",
     "00-work log/00-环境搭建/00-新建空项目(父模块).md",
     "00-work log/02-部署/05-安装RocketMQ.md",
     "00-work log/01-业务/08-学习社区和资料分享模块.md",
@@ -207,7 +194,6 @@
     "00-work log/01-业务/04-积分兑换奖品模块rms.md",
     "00-work log/01-业务/01-权限管理模块security.md",
     "00-work log/01-业务/00-统一返回值.md",
-    "00-work log/02-部署/10-部署微服务到docker.md",
     "00-work log/01-业务/_file/Pasted image 20241123162251.png",
     "00-work log/02-部署/_file/Pasted image 20241127021545.png",
     "00-work log/02-部署/_file/Pasted image 20241121160606.png",
@@ -216,7 +202,6 @@
     "00-work log/02-部署/_file/Pasted image 20241121151745.png",
     "00-work log/02-部署/_file/Pasted image 20241121151726.png",
     "00-work log/02-部署/_file/Pasted image 20241121151640.png",
-    "00-work log/02-部署/_file/Pasted image 20241121151626.png",
     "00-work log/02-部署/_file",
     "00-work log/02-部署",
     "00-work log/01-业务/_file",

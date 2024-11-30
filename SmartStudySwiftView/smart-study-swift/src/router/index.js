@@ -32,6 +32,11 @@ const router = createRouter({
       name: 'chat',
       component: () => import('../views/ChatView.vue'),
     },
+    {
+      path: '/question/bank',
+      name: 'question bank',
+      component: () => import('../views/QuestionBankView.vue'),
+    }
   ],
 })
 

@@ -30,6 +30,4 @@ secure:
       - /druid/**
       - /actuator/**
       - /test/**
-      - /ums/account/login
-      - /ums/account/register
-      - /test
+      - /public/**
