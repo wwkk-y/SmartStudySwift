@@ -1,10 +1,10 @@
 <template>
     <div id="about">
         <h1>智学速练 (SmartStudySwift)</h1>
-        <h2>项目起源</h2>
+        <h2>起源</h2>
         <p>我在做兼职老师的时候，发现很多学生没有科学的学习方法，比如他们没有科学的做题练习体系，这样会浪费很多时间，而且他们获取知识的方式非常有限。想起我自己以前学习时也是这样摸石头过河，而后面我又接触了像力扣，极客时间这样优秀的平台，于是我就在想，能不能开发一个平台为学生提供科学的练习方式和方便的学习资源，再结合现在流行的AI的方式进一步提升学习效率。所以，我就有了写这个项目想法。
         </p>
-        <h2>项目目标</h2>
+        <h2>目标</h2>
         <p>简单来说，“智学速练”就是想要帮助学生们更好地练习和学习。我们希望通过这个平台：</p>
         <li>
             <span class="blod">让学习变得更高效：</span>
@@ -22,9 +22,18 @@
             <span class="blod">关注学生的全面发展：</span>
             除了学习课本上的知识，我们还会有一些关于艺术、体育等方面的活动，让孩子们的兴趣更加广泛。
         </li>
-        <h2>项目地址</h2>
+        <div style="width: 100%; overflow: hidden">
+            <img src="@/assets/111.png" style="width: 100%;"/>
+        </div>
+        <h2>项目信息</h2>
         <li>
             github: <a href="https://github.com/wwkk-y/SmartStudySwift">https://github.com/wwkk-y/SmartStudySwift</a>
+        </li>
+        <li>
+            bug反馈: <a href="https://github.com/wwkk-y/SmartStudySwift/issues">链接</a>
+        </li>
+        <li>
+            联系方式：3262954152@qq.com
         </li>
     </div>
 </template>

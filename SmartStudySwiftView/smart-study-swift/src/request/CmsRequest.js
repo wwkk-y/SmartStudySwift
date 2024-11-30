@@ -1,5 +1,6 @@
 import { cmsBaseUrl } from "@/config/UrlConfig";
 import BaseRequest from "./BaseRequest";
+import { ElMessage } from "element-plus";
 
 /**
  * 查询当前用户的会话
@@ -10,9 +11,23 @@ import BaseRequest from "./BaseRequest";
 async function queryConversationList(pageNum, pageSize, targetName) {
     if (pageNum <= 0 || pageSize <= 0) {
         console.error("queryConversationList error", pageNum, pageSize);
+        return;
     }
 
     return await BaseRequest.get(`${cmsBaseUrl}/cms/conversation/list`, { pageNum, pageSize, targetName })
+}
+
+/**
+ * 查询当前用户的某个会话
+ * @param {Number} conversationId 
+ */
+async function queryConversaionInfo(conversationId) {
+    if(!conversationId){
+        console.error("queryConversaion error", conversationId);
+        return;
+    }
+
+    return await BaseRequest.get(`${cmsBaseUrl}/cms/conversation/info`, { conversationId })
 }
 
 /**
@@ -41,11 +56,41 @@ async function sendMsg(conversationId, type, content) {
         console.error("sendMsg error", conversationId, type, content);
         return;
     }
+    if(content.length > 500){
+        ElMessage.warning("消息体太长，发送失败")
+        return
+    }
 
     return await BaseRequest.post(`${cmsBaseUrl}/message/send`, {conversationId, type, content});
 }
 
+/**
+ * 清除未读消息
+ * @param {Number} conversationId 
+ */
+async function clearUnreadMsg(conversationId){
+    if(!conversationId){
+        console.error("clearUnreadMsg error", conversationId);
+        return;
+    }
+
+    return await BaseRequest.postParam(`${cmsBaseUrl}/message/clearUnreadMsg`, {conversationId});
+}
+
+/**
+ * 尝试和某个用户聊天
+ * @param {*} targetUid
+ * @returns 会话详情 
+ */
+async function tryConversationWithUser(targetUid) {
+    if(!targetUid){
+        console.error("tryConversationWithUser error", targetUid);
+        return;
+    }
+
+    return await BaseRequest.postParam(`${cmsBaseUrl}/cms/conversation/tryConversationWithUser`, {targetUid});
+}
 
 export default {
-    queryConversationList, queryMessageOfConversation, sendMsg
+    queryConversationList, queryConversaionInfo, queryMessageOfConversation, sendMsg, clearUnreadMsg, tryConversationWithUser
 }

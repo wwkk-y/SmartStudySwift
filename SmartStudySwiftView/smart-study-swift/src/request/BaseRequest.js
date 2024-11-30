@@ -51,6 +51,28 @@ async function post(url, body) {
 }
 
 /**
+ * 参数加到param上
+ * @param {String} url 
+ * @param {Object} params 
+ * @returns 
+ */
+async function postParam(url, params) {
+    const queryParams = new URLSearchParams(params);
+    // 构建完整的 URL，包括查询参数
+    const fullUrl = `${url}?${queryParams.toString()}`;
+    return await fetch(
+        fullUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': useTokenStore().token
+        },
+    }).then(response => response.json())
+        .then(res => dealResponse(res))
+        .catch(error => console.error('Error:', error))
+}
+
+/**
  * 
  * @param {String} url 
  * @param {Object} params 
@@ -73,5 +95,5 @@ async function get(url, params) {
 }
 
 export default {
-    post, get
+    post, get, postParam
 }

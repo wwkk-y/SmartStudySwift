@@ -6,6 +6,10 @@
  * @returns 
  */
 export function formatDateString(date) {
+    if(!date){
+        return '';
+    }
+
     let givenDate = date;
     if(!(date instanceof Date)){
          // 解析输入的日期字符串

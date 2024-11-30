@@ -86,7 +86,22 @@ function accountInfo(){
     return BaseRequest.get(umsBaseUrl + '/ums/account/info');
 }
 
+/**
+ * 查询用户信息
+ * @param {Number} pageNum 必须 当前页
+ * @param {Number} pageSize 必须 每页条数
+ * @param {String} name 非必须 用户名或昵称
+ */
+async function queryUserList(pageNum, pageSize, name){
+    if (pageNum <= 0 || pageSize <= 0) {
+        console.error("queryUserList error", pageNum, pageSize);
+        return;
+    }
+
+    return await BaseRequest.get(`${umsBaseUrl}/user/list`, {pageNum, pageSize, name});
+}
+
 
 export default {
-    login, logout, register, accountInfo
+    login, logout, register, accountInfo, queryUserList
 }
