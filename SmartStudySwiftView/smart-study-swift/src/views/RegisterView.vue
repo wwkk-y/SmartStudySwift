@@ -77,7 +77,7 @@ function registerClick() {
             ElMessage.warning('注册失败，用户名或者邮箱重复')
         } else {
             ElMessage.success('注册成功');
-            router.push("/login");
+            router.replace("/login");
         }
     })
 }
