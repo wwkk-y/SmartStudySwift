@@ -6,6 +6,7 @@ import com.sss.cms.feign.SssKaFeign;
 import com.sss.cms.vo.MessageQueryVo;
 import com.sss.cms.vo.MessageSendVo;
 import com.sss.common.vo.KaMsgSendVo;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

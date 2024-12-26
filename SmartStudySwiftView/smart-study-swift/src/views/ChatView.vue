@@ -16,8 +16,7 @@
                             :class="{ active: conversationActive[conversation.id] }"
                             v-for="conversation of tempConversationList" :key="conversation.id" style="padding: 0;"
                             @click="selectConversation(conversation)" v-show="!conversationLoad[conversation.id]">
-                            <cms-conversation-list-item
-                                :conversation="conversation" />
+                            <cms-conversation-list-item :conversation="conversation" />
                         </el-menu-item>
                         <!-- 会话列表 -->
                         <el-menu-item class="conversation-preview"
@@ -76,6 +75,15 @@
                                     ">
                                     <cms-msg-render :msg="msg"></cms-msg-render>
                                 </div>
+                                <!-- TODO发消息时渲染状态 发送中 - 发送成功 - 发送失败 -->
+                                <template v-if="msg.sendState === 1">
+                                    <!-- 发送中 -->
+                                    发送中
+                                </template>
+                                <template v-else-if="msg.sendState === 2">
+                                    <!-- 发送失败 -->
+                                    发送失败
+                                </template>
                             </div>
                             <div v-else style="text-align: left; display: flex; ">
                                 <el-avatar shape="circle" :src="`${fileBaseUrl}/${curConversation.icon}`" />
@@ -126,13 +134,13 @@
                     </el-icon>
                 </div>
                 <div style="height: 65%; overflow-y: hidden;  margin-left: 8px;">
-                    <textarea v-model="msgInput" @keyup.enter="sendTextMsg" @keyup.shift.space="newLine" style="width: 100%; height: 100%; 
+                    <textarea v-model="msgInput" @keyup.enter="sendTextMsg(msgInput)" @keyup.shift.space="newLine" style="width: 100%; height: 100%; 
                     border: none; outline: none;
                     font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;"></textarea>
                 </div>
                 <div style="text-align: right; margin-right: 10px; margin-top: 10px; ">
                     <el-tooltip effect="dark" content="按Enter键发送消息，按Alt+Enter键换行">
-                        <el-button @click="sendTextMsg" :disabled="msgSending">发送</el-button>
+                        <el-button @click="sendTextMsg(msgInput)">发送</el-button>
                     </el-tooltip>
                 </div>
             </div>
@@ -204,6 +212,7 @@ import { ElMessage } from 'element-plus';
 import WebsokcetHandler from '@/request/WebsokcetHandler';
 import UmsRequest from '@/request/UmsRequest';
 import CmsConversationListItem from '@/components/CmsConversationListItem.vue';
+import { v4 as uuidv4 } from 'uuid';
 
 let router = useRouter();
 let tokenStore = useTokenStore();
@@ -277,15 +286,15 @@ async function selectUserToChat(uid) {
     // 如果会话存在 
     //   会话本地未加载 -> 放到最上面临界区
     // 如果会话不存在 -> 创建 放到最上面临界区
-        // 临界区的会话等会话已经加载就不显示 => 如何判断会话已加载，加载会话时设置map id -> bool
+    // 临界区的会话等会话已经加载就不显示 => 如何判断会话已加载，加载会话时设置map id -> bool
     // 选中会话
-    if(selectUserToChatDoing.value){
+    if (selectUserToChatDoing.value) {
         ElMessage.warning("上一个请求正在执行中，请稍等");
         return;
     }
     selectUserToChatDoing.value = true;
     return await CmsRequest.tryConversationWithUser(uid).then(conversation => {
-        if(conversation){
+        if (conversation) {
             // 会话没加载
             tryAddTempConversation(conversation);
             // 选中会话
@@ -317,20 +326,20 @@ let conversationLoading = ref(false)
 let noMoreConversation = ref(false)
 
 // 临界区会话放入时需要保证不重复，且未加载，如果重复 -> 更新信息
-function tryAddTempConversation(conversation){
-    if(!conversation){
+function tryAddTempConversation(conversation) {
+    if (!conversation) {
         return;
     }
 
     // 已加载
-    if(conversationLoad.value[conversation.id]){
+    if (conversationLoad.value[conversation.id]) {
         return;
     }
 
     // 如果已经存在 -> 更新信息
     let hasConversation = false; // 是否已经放到临界区了
-    for(let i = 0; i < tempConversationList.value.length; ++i){
-        if(tempConversationList.value[i].id == conversation.id){
+    for (let i = 0; i < tempConversationList.value.length; ++i) {
+        if (tempConversationList.value[i].id == conversation.id) {
             hasConversation = true;
 
             // 重复了, 更新信息
@@ -339,7 +348,7 @@ function tryAddTempConversation(conversation){
     }
 
     // 不存在 -> 添加到头部
-    if(!hasConversation){
+    if (!hasConversation) {
         tempConversationList.value.unshift(conversation);
     }
 }
@@ -379,11 +388,11 @@ queryConversationList();
 // 会话按照更新时间排序
 function sortConversationList() {
     conversationList.value.sort((a, b) => {
-        if(!a.updateTime){
+        if (!a.updateTime) {
             return 1; // 交换，没有updateTime的在后面
         }
 
-        if(!b.updateTime){
+        if (!b.updateTime) {
             return -1; // 不交换
         }
 
@@ -549,25 +558,43 @@ function msgScrollToBottomNextTick() {
 
 // 发送消息
 let msgInput = ref("")
-let msgSending = ref(false);
-function sendTextMsg() {
-    if (msgSending.value) {
-        return false;
-    }
-
+function sendTextMsg(msg) {
     if (!curConversation.value.id) {
         ElMessage.warning('请先选择一个会话');
         return;
     }
 
-    msgSending.value = true;
-    CmsRequest.sendMsg(curConversation.value.id, 'TEXT', msgInput.value).then(newMsg => {
+    let newTextMsg = {
+        "id": uuidv4(),
+        "senderId": tokenStore.getUser().id,
+        "conversationId": curConversation.value.id,
+        "type": "TEXT",
+        "content": msg,
+        "sendState": 1 // 不存在|0 -> 发送成功 | 1 -> 发送中 | 2 -> 发送失败 用做前端发消息时渲染，后端不存
+    
+    }
+    console.log(newTextMsg)
+    msgList.value.unshift(newTextMsg)
+    msgScrollToBottomNextTick();
+    CmsRequest.sendMsg(newTextMsg.conversationId, newTextMsg.type, newTextMsg.content).then(newMsg => {
+        // 为了vue监听到数据变化，需要通过msgList修改原对象
         if (newMsg) {
-            msgList.value.unshift(newMsg);
-            msgScrollToBottomNextTick();
-            msgInput.value = ''
+            // 发送成功
+            for(let i = 0; i < msgList.value.length; ++i){
+                if(msgList.value[i].id = newTextMsg.id){
+                    msgList.value[i] = newMsg;
+                    break;
+                }
+            }
+        } else {
+            // 发送失败
+            for(let i = 0; i < msgList.value.length; ++i){
+                if(msgList.value[i].id = newTextMsg.id){
+                    msgList.value[i].sendState = 2;
+                    break;
+                }
+            }
         }
-        msgSending.value = false;
     })
 }
 
@@ -602,12 +629,12 @@ WebsokcetHandler.registerListener('/notice/msg/chat', (newMsg) => { // FIXME 常
 
                 // 判断是否添加一条新消息 (新消息通知不但给对方发，也给自己发，考虑同一个用户在线多台设备的场景)
                 let hasMsg = false;
-                for(let i = 0; i < msgList.value.length; ++i){
-                    if(msgList.value[i].id == newMsg.id){
+                for (let i = 0; i < msgList.value.length; ++i) {
+                    if (msgList.value[i].id == newMsg.id) {
                         hasMsg = true;
                     }
                 }
-                if(!hasMsg){
+                if (!hasMsg) {
                     msgList.value.unshift(newMsg);
                 }
                 // 如果不是自己发的消息，正好看到了 清除未读消息

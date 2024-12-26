@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-开发环境.md",
+                "file": "00-work log/00-环境搭建/15-异步调用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01-开发环境"
+              "title": "15-异步调用"
             }
           }
         ],
@@ -180,9 +180,10 @@
   },
   "active": "f41909618acfe26f",
   "lastOpenFiles": [
+    "01-开发环境.md",
+    "00-work log/00-环境搭建/15-异步调用.md",
     "00-work log/02-部署/11-安装并配置nginx.md",
     "00-work log/02-部署/12-安装MinIO.md",
-    "01-开发环境.md",
     "00-work log/03-前端/00-前端环境.md",
     "00-work log/00-环境搭建/03-引入swagger文档.md",
     "00-work log/01-业务/06.1-往客户端推新消息时.md",
@@ -209,7 +210,6 @@
     "00-work log/01-业务/08-学习社区和资料分享模块.md",
     "00-work log/01-业务/04.2-缓存奖品详情信息.md",
     "00-work log/01-业务/04-积分兑换奖品模块rms.md",
-    "00-work log/01-业务/01-权限管理模块security.md",
     "00-work log/01-业务/_file/Pasted image 20241123162251.png",
     "00-work log/02-部署/_file/Pasted image 20241127021545.png",
     "00-work log/02-部署/_file/Pasted image 20241121160606.png",
