@@ -75,14 +75,19 @@
                                     ">
                                     <cms-msg-render :msg="msg"></cms-msg-render>
                                 </div>
-                                <!-- TODO发消息时渲染状态 发送中 - 发送成功 - 发送失败 -->
-                                <template v-if="msg.sendState === 1">
-                                    <!-- 发送中 -->
-                                    发送中
-                                </template>
-                                <template v-else-if="msg.sendState === 2">
-                                    <!-- 发送失败 -->
-                                    发送失败
+                                <!-- 发消息时渲染状态 发送中 - 发送成功 - 发送失败 -->
+                                <template v-if="msg.sendState">
+                                    <el-icon
+                                        style="display: flex; justify-content: center; align-items: center; height: 40px; margin-right: 5px;">
+                                        <template v-if="msg.sendState === 1">
+                                            <!-- 发送中 -->
+                                            <Loading />
+                                        </template>
+                                        <template v-else-if="msg.sendState === 2">
+                                            <!-- 发送失败 -->
+                                            <WarningFilled style="color: red;" @click="retryMsg(msg)"/>
+                                        </template>
+                                    </el-icon>
                                 </template>
                             </div>
                             <div v-else style="text-align: left; display: flex; ">
@@ -134,13 +139,13 @@
                     </el-icon>
                 </div>
                 <div style="height: 65%; overflow-y: hidden;  margin-left: 8px;">
-                    <textarea v-model="msgInput" @keyup.enter="sendTextMsg(msgInput)" @keyup.shift.space="newLine" style="width: 100%; height: 100%; 
+                    <textarea v-model="msgInput" @keyup.enter="sendInputTextMsg" @keyup.shift.space="newLine" style="width: 100%; height: 100%; 
                     border: none; outline: none;
                     font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;"></textarea>
                 </div>
                 <div style="text-align: right; margin-right: 10px; margin-top: 10px; ">
                     <el-tooltip effect="dark" content="按Enter键发送消息，按Alt+Enter键换行">
-                        <el-button @click="sendTextMsg(msgInput)">发送</el-button>
+                        <el-button @click="sendInputTextMsg">发送</el-button>
                     </el-tooltip>
                 </div>
             </div>
@@ -571,31 +576,30 @@ function sendTextMsg(msg) {
         "type": "TEXT",
         "content": msg,
         "sendState": 1 // 不存在|0 -> 发送成功 | 1 -> 发送中 | 2 -> 发送失败 用做前端发消息时渲染，后端不存
-    
+
     }
-    console.log(newTextMsg)
     msgList.value.unshift(newTextMsg)
     msgScrollToBottomNextTick();
     CmsRequest.sendMsg(newTextMsg.conversationId, newTextMsg.type, newTextMsg.content).then(newMsg => {
         // 为了vue监听到数据变化，需要通过msgList修改原对象
         if (newMsg) {
             // 发送成功
-            for(let i = 0; i < msgList.value.length; ++i){
-                if(msgList.value[i].id = newTextMsg.id){
-                    msgList.value[i] = newMsg;
-                    break;
-                }
-            }
+            newTextMsg.id = newMsg.id;
+            newTextMsg.sendState = 0;
+            msgList.value = [...msgList.value]; // 确保监听到msgList里元素的变化
         } else {
             // 发送失败
-            for(let i = 0; i < msgList.value.length; ++i){
-                if(msgList.value[i].id = newTextMsg.id){
-                    msgList.value[i].sendState = 2;
-                    break;
-                }
-            }
+            newTextMsg.sendState = 2;
+            msgList.value = [...msgList.value]; // 确保监听到msgList里元素的变化
         }
     })
+}
+
+// 发送文本消息并清空输入框
+function sendInputTextMsg() {
+    let msg = msgInput.value;
+    msgInput.value = "";
+    sendTextMsg(msg);
 }
 
 // 换行
@@ -603,6 +607,18 @@ function newLine() {
     console.log('new line')
     msgInput.value += `
 `
+}
+
+// 重试消息
+function retryMsg(msg){
+    // 文本 -> 重新编辑
+    if(msg.type === "TEXT"){
+        msgList.value = msgList.value.filter(e => e !== msg);
+        msgInput.value = msg.content;
+        msgScrollToBottomNextTick();
+    }
+
+    // TODO 图片 / 文件 -> 重新发送 
 }
 
 // 消息处理器

@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00-work log/00-环境搭建/15-异步调用.md",
+                "file": "00-work log/02-部署/02-docker安装及使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "15-异步调用"
+              "title": "02-docker安装及使用"
             }
           }
         ],
@@ -154,10 +154,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "06.1-往客户端推新消息时.md"
+                "file": "00-work log/02-部署/02-docker安装及使用.md"
               },
               "icon": "lucide-list",
-              "title": "06.1-往客户端推新消息时 的大纲"
+              "title": "02-docker安装及使用 的大纲"
             }
           }
         ],
@@ -165,8 +165,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,8 +179,9 @@
   },
   "active": "f41909618acfe26f",
   "lastOpenFiles": [
-    "01-开发环境.md",
+    "00-work log/02-部署/01-linux常用命令.md",
     "00-work log/00-环境搭建/15-异步调用.md",
+    "01-开发环境.md",
     "00-work log/02-部署/11-安装并配置nginx.md",
     "00-work log/02-部署/12-安装MinIO.md",
     "00-work log/03-前端/00-前端环境.md",
@@ -202,7 +202,6 @@
     "00-work log/00-环境搭建/06-参数校验.md",
     "00-work log/03-前端",
     "00-work log/00-环境搭建/04-引入数据库MySQL相关.md",
-    "00-work log/02-部署/01-linux常用命令.md",
     "00-work log/02-部署/_file/Pasted image 20241128183201.png",
     "00-work log/02-部署/02-docker安装及使用.md",
     "00-work log/00-环境搭建/00-新建空项目(父模块).md",
