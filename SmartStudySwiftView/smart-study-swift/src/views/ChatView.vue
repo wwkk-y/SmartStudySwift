@@ -537,7 +537,7 @@ function scrollMsg({ scrollLeft, scrollTop }) {
         msgMaxPage.pageNum += 1;
         setTimeout(() => {
             requestMsg().then(() => {
-                msgScrollBarRef.value.setScrollTop(2); // 避免下次加载需要重新到顶部
+                msgScrollBarRef.value.setScrollTop(30); // 避免下次加载需要重新到顶部
                 msgScrolling.value = false
             })
         }, 1000)
