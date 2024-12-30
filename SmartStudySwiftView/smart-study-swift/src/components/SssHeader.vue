@@ -16,7 +16,7 @@
             <template #title>
                 <el-avatar shape="circle" :src="`${fileBaseUrl}/${tokenStore.getUser().icon}`" />
             </template>
-            <el-menu-item index="7-0">账号</el-menu-item>
+            <el-menu-item index="/account">账号</el-menu-item>
             <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-sub-menu>
     </el-menu>

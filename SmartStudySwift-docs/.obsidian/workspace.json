@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00-work log/02-部署/02-docker安装及使用.md",
+                "file": "00-work log/01-业务/07-题库系统qms.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02-docker安装及使用"
+              "title": "07-题库系统qms"
             }
           }
         ],
@@ -154,10 +154,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00-work log/02-部署/02-docker安装及使用.md"
+                "file": "00-work log/01-业务/07-题库系统qms.md"
               },
               "icon": "lucide-list",
-              "title": "02-docker安装及使用 的大纲"
+              "title": "07-题库系统qms 的大纲"
             }
           }
         ],
@@ -179,36 +179,36 @@
   },
   "active": "f41909618acfe26f",
   "lastOpenFiles": [
+    "00-work log/01-业务/08-学习社区和资料分享模块.md",
+    "00-work log/01-业务/07-题库系统qms.md",
+    "00-work log/01-业务/06.1-往客户端推新消息时.md",
+    "00-work log/01-业务/06-聊天模块cms.md",
+    "00-work log/01-业务/05-长连接系统KeepAlive.md",
+    "00-work log/01-业务/04.2-缓存奖品详情信息.md",
+    "00-work log/01-业务/04.1-RocketMQ处理消息丢失和重复消费.md",
+    "00-work log/01-业务/04-积分兑换奖品模块rms.md",
+    "00-work log/01-业务/03-用户相关模块ums.md",
+    "00-work log/01-业务/01-权限管理模块security.md",
+    "00-work log/01-业务/00-统一返回值.md",
+    "00-work log/03-前端/00-前端环境.md",
+    "00-work log/03-前端/01-vue默认项目禁用暗黑模式.md",
+    "01-开发环境.md",
+    "00-work log/02-部署/02-docker安装及使用.md",
     "00-work log/02-部署/01-linux常用命令.md",
     "00-work log/00-环境搭建/15-异步调用.md",
-    "01-开发环境.md",
     "00-work log/02-部署/11-安装并配置nginx.md",
     "00-work log/02-部署/12-安装MinIO.md",
-    "00-work log/03-前端/00-前端环境.md",
     "00-work log/00-环境搭建/03-引入swagger文档.md",
-    "00-work log/01-业务/06.1-往客户端推新消息时.md",
-    "00-work log/01-业务/07-题库系统qms.md",
     "_file/chat.png",
     "_file/VB3I3][BH8G3$ZP%MEUK4{6.png",
-    "00-work log/03-前端/01-vue默认项目禁用暗黑模式.md",
     "temp.md",
     "ignore.md",
-    "00-work log/01-业务/06-聊天模块cms.md",
     "00-work log/00-环境搭建/14-引入openfeign.md",
     "00-work log/00-环境搭建/13-使用pagehelper.md",
     "00-work log/00-环境搭建/12-引入nacos.md",
-    "00-work log/01-业务/05-长连接系统KeepAlive.md",
     "00-work log/00-环境搭建/08-引入WebSocket相关.md",
-    "00-work log/00-环境搭建/06-参数校验.md",
     "00-work log/03-前端",
-    "00-work log/00-环境搭建/04-引入数据库MySQL相关.md",
     "00-work log/02-部署/_file/Pasted image 20241128183201.png",
-    "00-work log/02-部署/02-docker安装及使用.md",
-    "00-work log/00-环境搭建/00-新建空项目(父模块).md",
-    "00-work log/02-部署/05-安装RocketMQ.md",
-    "00-work log/01-业务/08-学习社区和资料分享模块.md",
-    "00-work log/01-业务/04.2-缓存奖品详情信息.md",
-    "00-work log/01-业务/04-积分兑换奖品模块rms.md",
     "00-work log/01-业务/_file/Pasted image 20241123162251.png",
     "00-work log/02-部署/_file/Pasted image 20241127021545.png",
     "00-work log/02-部署/_file/Pasted image 20241121160606.png",

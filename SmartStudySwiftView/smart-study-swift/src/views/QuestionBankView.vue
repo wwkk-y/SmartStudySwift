@@ -2,10 +2,9 @@
   题库
 </template>
 
-<script>
-export default {
+<script setup>
+import { ref } from "vue";
 
-}
 </script>
 
 <style>

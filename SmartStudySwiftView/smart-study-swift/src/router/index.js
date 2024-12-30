@@ -36,6 +36,11 @@ const router = createRouter({
       path: '/question/bank',
       name: 'question bank',
       component: () => import('../views/QuestionBankView.vue'),
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('../views/AccountView.vue'),
     }
   ],
 })
