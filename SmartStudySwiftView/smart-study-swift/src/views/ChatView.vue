@@ -100,7 +100,7 @@
                                     border-bottom-right-radius: 10px; 
                                     border-bottom-left-radius: 10px; 
                                     border-top-right-radius: 10px;
-                                    background-color: rgba(223, 223, 223, 0.3);
+                                    background-color: rgba(223, 223, 223, 0.5);
                                     display: flex;
                                     align-items: center;
                                     color: black;
